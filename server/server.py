@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 import joblib
 from flask_cors import CORS
-from dao import insert_data, insert_barwell
+from dao import insert_barwell
 from sqlalchemy import create_engine
 from sqlalchemy.engine.url import URL
 from datetime import datetime

@@ -52,34 +52,34 @@ def insert_barwell(time, scr, ctemp, rpm, ntemp, scale, stemp):
             "s_temp_pv" : stemp
         })
         conn.commit()
-def insert_data(time, scr, ctemp, rpm, ntemp, scale, stemp):
-    query = """
-    INSERT INTO data (
-        time, 
-        E_scr_pv, 
-        c_temp_pv, 
-        k_rpm_pv, 
-        n_temp_pv, 
-        scale_pv, 
-        s_temp_pv
-        ) VALUES (
-            :time,
-            :E_scr_pv, 
-            :c_temp_pv, 
-            :k_rpm_pv, 
-            :n_temp_pv, 
-            :scale_pv, 
-            :s_temp_pv
-        )
-        """
-    with current_app.database.connect() as conn:
-        conn.execute(text(query), {
-            "time"      : time, 
-            "E_scr_pv"  : scr, 
-            "c_temp_pv" : ctemp, 
-            "k_rpm_pv"  : rpm, 
-            "n_temp_pv" : ntemp, 
-            "scale_pv"  : scale, 
-            "s_temp_pv" : stemp
-        })
-        conn.commit()
+# def insert_data(time, scr, ctemp, rpm, ntemp, scale, stemp):
+#     query = """
+#     INSERT INTO data (
+#         time, 
+#         E_scr_pv, 
+#         c_temp_pv, 
+#         k_rpm_pv, 
+#         n_temp_pv, 
+#         scale_pv, 
+#         s_temp_pv
+#         ) VALUES (
+#             :time,
+#             :E_scr_pv, 
+#             :c_temp_pv, 
+#             :k_rpm_pv, 
+#             :n_temp_pv, 
+#             :scale_pv, 
+#             :s_temp_pv
+#         )
+#         """
+#     with current_app.database.connect() as conn:
+#         conn.execute(text(query), {
+#             "time"      : time, 
+#             "E_scr_pv"  : scr, 
+#             "c_temp_pv" : ctemp, 
+#             "k_rpm_pv"  : rpm, 
+#             "n_temp_pv" : ntemp, 
+#             "scale_pv"  : scale, 
+#             "s_temp_pv" : stemp
+#         })
+#         conn.commit()

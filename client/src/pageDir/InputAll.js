@@ -9,19 +9,31 @@ import nextimg from '../imgDir/next.png'
 import ReactFileReader from "react-file-reader";
 
 const num_regex = /^\d{0,}\.{0,1}\d{1,}$/i;
-
+let listSum = 0;
+let success = 0;
+let faile = 0;
+let faileSum = 0;
+let data_w = 0;
 function InputAll(){
     const [data, setData] = useState([{}]);
     const [isData, setIsData] = useState(false);
     const [data_count, setCount] = useState(0);
     const [modalOpen, setModalOpen] = useState(false);
     const movePage = useNavigate();
+    // const [listSum, setListSum] = useState(0);
+    // const [dataLen, setDataLen] = useState(0);
 
     const handleFileChange = (files) => {    //csv 업로드
+        listSum = 0;
+        faile = 0;
+        faileSum = 0;
+        data_w = 0;
+        success = 0;
         const read = new FileReader();
         // when readAsText will invoke, onload() method on the read object will execute.
         read.onload = function (e) {
             // perform some operations with read data
+            // setListSum(0);
             const data_list = read.result.split(/(?:\r\n|\r|\n)/g).slice(1);
             
             // for(const one_data of data_list){
@@ -44,6 +56,20 @@ function InputAll(){
                             setIsData(true);
                             setCount(i+1);
                             setData(response.data);
+                            // setDataLen(dataLen + 1);
+                            if(response.data.rpm_weight != -1 && !response.data.is_rpm_error){
+                                success = success + 1;
+                                listSum = listSum + response.data.rpm_weight;
+                                data_w = data_w + 3.0
+                            }else if(response.data.rpm_weight == -1 && !response.data.is_error){
+                                success = success + 1;
+                                listSum = listSum + response.data.predicted_weight;
+                                data_w = data_w + 3.0
+                            }else{
+                                faile = faile + 1;
+                                faileSum = faileSum + response.data.predicted_weight;
+                            }
+                            // setListSum(listSum + response.data.rpm_weight);
                             openModal();
                         })
                         .catch(error => {
@@ -143,6 +169,9 @@ function InputAll(){
                     {isData ? 
                 <div>
                     <div>{data_count}번째 제품</div>
+                    <div>현재까지 양품 : {success}개</div>
+                    <div>현재까지 중량 합 : {Math.round(listSum*1000)/1000}g(loss : {(Math.round((listSum - data_w)*1000000)/1000000)}g)</div>
+                    <div>현재까지 불량품 : {faile}개( 총 {faileSum}g )</div>
                     <div>
                         {(typeof data.predicted_weight === 'undefined') ? (
                             <p>loding...</p>
@@ -155,8 +184,8 @@ function InputAll(){
                                     }
                                     <p> - </p>
                                     {data.recommended_rpm !== -1 ?
-                                    <h2>기존 예상 중량 : {data.predicted_weight}</h2>
-                                    :<h2>예상 중량 : {data.predicted_weight}</h2>
+                                    <h2>기존 예상 중량 : {data.predicted_weight}g</h2>
+                                    :<h2>예상 중량 : {data.predicted_weight}g</h2>
                                     }
                                     <p> - </p>
                                 </div>
@@ -173,8 +202,8 @@ function InputAll(){
                                         {data.recommended_rpm === -1 ? <p>칼날 RPM 유지</p> : 
                                         <div>
                                             <p>추천 칼날 RPM : {data.recommended_rpm}</p>
-                                            <h2>RPM 변경 후 예상 중량 : {data.rpm_weight}</h2>
-                                            <h3>중량 차이 : {Math.round(Math.abs(data.predicted_weight - data.rpm_weight)*1000)/1000}</h3>
+                                            <h2>RPM 변경 후 <br></br>예상 중량 : {data.rpm_weight}g</h2>
+                                            <h3>중량 차이 : {Math.round(Math.abs(data.predicted_weight - data.rpm_weight)*1000)/1000}g</h3>
                                         </div>
                                         }
                                     </div>:
