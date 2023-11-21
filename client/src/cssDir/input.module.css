@@ -1,0 +1,343 @@
+.App{
+    height: 100%;
+    min-height: 100%;
+    box-sizing: border-box;
+}
+.input_page{
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    height: auto;
+    min-height: 100%;
+    box-sizing: border-box;
+}
+
+.input_wrap {
+    box-sizing: border-box;
+    width: calc(100% - 40px);
+    max-width: 700px;
+    margin: 0 auto;
+    height: 100%;
+    min-height: calc(100vh - 156px);
+    display: table;
+    table-layout: fixed;
+}
+.input_box{
+    box-sizing: border-box;
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%;
+}
+.input_head{
+    padding-top: 70px;
+    padding-bottom: 30px;
+}
+
+.input_form{
+    box-sizing: border-box;
+}
+
+.input, .input_btn_under, .input_btn, .home_btn, .home_btn_under, .cancel_btn, .cancel_btn_under{
+    border: none;
+    cursor: pointer;
+    outline: none;
+    background: none;
+    width: 100%;
+    height: 45px;
+    border-bottom: 1px solid gray;
+    font-size: 16px;
+    line-height: 30px;
+    color: black;
+}
+.input{
+    cursor: text;
+}
+.input:hover {
+    border-color: #6c89c6;;
+    transition: all 0.2s ease;
+}
+.input:hover::placeholder {
+    color: #6c89c6;;
+    transition: color 0.2s ease;
+}
+.input:focus{
+    border-color: #6c89c6;;
+}
+.input_btn_wrap{
+    position: relative;
+    text-decoration: 0;
+    display: block;
+    width: 100%;
+    height: 45px;
+    text-align: center;
+    line-height: 43px;
+    margin-top: 6px;
+}
+.input_btn_under{
+    position: absolute;
+    left: 0;
+    border: 1px solid black;
+    padding: 0;
+    color: white;
+    line-height: 43px;
+    background-color: black;
+    font-weight: bold;
+}
+.input_btn{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 0;
+    border: 1px solid black;
+    padding: 0;
+    color: black;
+    overflow: hidden;
+    background-color: #ffffff;
+    font-weight: bold;
+    line-height: 43px;
+    transition: height 0.4s ease;
+    transition: width 0.4s ease;
+}
+.input_btn > span{
+    line-height: 43px;
+    width: calc(100vw - 40px);
+    max-width: 700px;
+    position: absolute;
+    font-weight: bold;
+    border: 0;
+    margin: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: block;
+}
+.input_btn_wrap:hover .input_btn{
+    width: 100%;
+}
+
+.home_btn_under{
+    position: absolute;
+    left: 0;
+    border: 1px solid #6c89c6;;
+    padding: 0;
+    line-height: 43px;
+    color: white;
+    background-color: #6c89c6;;
+    font-weight: bold;
+}
+.home_btn{
+    position: absolute;
+    left: 700px;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 0;
+    border: 1px solid #6c89c6;;
+    padding: 0;
+    color: #6c89c6;;
+    overflow: hidden;
+    background-color: #ffffff;
+    font-weight: bold;
+    line-height: 43px;
+    transition: all 0.4s ease;
+}
+@media all and (max-width: 740px) {
+    .home_btn{
+        left: calc(100vw - 40px);
+    }
+}
+.home_btn > span{
+    line-height: 43px;
+    width: calc(100vw - 40px);
+    max-width: 700px;
+    position: absolute;
+    font-weight: bold;
+    border: 0;
+    margin: 0;
+    right: 0;
+    /* left: 0; */
+    bottom: 0;
+    display: block;
+}
+.input_btn_wrap:hover .home_btn{
+    border: 1px solid #6c89c6;
+    left: 0;
+    width: 100%;
+    max-width: 700px;
+}
+.cancel_btn_under{
+    position: absolute;
+    left: 0;
+    border: 1px solid black;
+    padding: 0;
+    line-height: 43px;
+    color: white;
+    background-color: black;
+    font-weight: bold;
+}
+
+.cancel_btn{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 0;
+    border: 1px solid black;
+    padding: 0;
+    color: white;
+    overflow: hidden;
+    background-color: #6c89c6;
+    font-weight: bold;
+    line-height: 43px;
+    transition: all 0.4s ease;
+}
+.cancel_btn > span{
+    line-height: 43px;
+    position: absolute;
+    font-weight: bold;
+    border: 0;
+    margin: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: block;
+}
+.input_btn_wrap:hover .cancel_btn{
+    border: 1px solid #6c89c6;
+    height: 100%;
+}
+.error_message{
+    height: 12px;
+    font-size: 12px;
+    color: red;
+    margin-top: 1px;
+    margin-bottom: 2px;
+}
+.modal_btn_under{
+    border: 1px solid #6c89c6;;
+    padding: 0;
+    width: 20vw;
+    line-height: 43px;
+    color: white;
+    background-color: #6c89c6;;
+    font-weight: bold;
+}
+.modal_btn{
+    height: 0;
+    width: 20vw;
+    border: 1px solid #6c89c6;;
+    padding: 0;
+    color: #6c89c6;;
+    overflow: hidden;
+    background-color: #ffffff;
+    font-weight: bold;
+    line-height: 43px;
+    transition: height 0.4s ease;
+}
+.modal_btn > span{
+    line-height: 43px;
+    position: absolute;
+    font-weight: bold;
+    border: 0;
+    margin: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: block;
+}
+.result_box{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    width: 40vw;
+}
+.product_img{
+    animation: fadein 1s;
+    -moz-animation: fadein 1s; /* Firefox */
+    -webkit-animation: fadein 1s; /* Safari and Chrome */
+    -o-animation: fadein 1s; /* Opera */
+}
+@keyframes fadein {
+    from {
+        opacity: 0;
+        transform: translate(0px, -200px);
+    }
+    to {
+        opacity: 1;
+    }
+}
+@-moz-keyframes fadein { /* Firefox */
+    from {
+        opacity: 0;
+        transform: translate(0px, -200px);
+    }
+    to {
+        opacity: 1;
+    }
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+    from {
+        opacity: 0;
+        transform: translate(0px, -200px);
+    }
+    to {
+        opacity: 1;
+    }
+}
+@-o-keyframes fadein { /* Opera */
+    from {
+        opacity: 0;
+        transform: translate(0px, -200px);
+    }
+    to {
+        opacity: 1;
+    }
+}
+.next_img{
+    animation: scale 1s;
+    -moz-animation: scale 1s; /* Firefox */
+    -webkit-animation: scale 1s; /* Safari and Chrome */
+    -o-animation: scale 1s; /* Opera */
+}
+@keyframes scale {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+    }
+}
+@-moz-keyframes scale { /* Firefox */
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+    }
+}
+@-webkit-keyframes scale { /* Safari and Chrome */
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+    }
+}
+@-o-keyframes scale { /* Opera */
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+    }
+}
+/* ( 크롬, 사파리, 오페라, 엣지 ) 동작 */
+::-webkit-scrollbar {
+    display: none;
+}
