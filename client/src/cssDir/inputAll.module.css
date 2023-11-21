@@ -37,7 +37,7 @@
     box-sizing: border-box;
 }
 
-.input, .input_btn_under, .input_btn, .home_btn, .home_btn_under, .cancel_btn, .cancel_btn_under{
+.input, .input_btn_under, .input_btn, .test_btn_under, .test_btn, .home_btn, .home_btn_under, .cancel_btn, .cancel_btn_under{
     border: none;
     cursor: pointer;
     outline: none;
@@ -116,7 +116,56 @@
 .input_btn_wrap:hover .input_btn{
     width: 100%;
 }
-
+.test_btn_under{
+    position: absolute;
+    left: 0;
+    border: 1px solid #5dbb86;;
+    padding: 0;
+    line-height: 43px;
+    color: white;
+    background-color: #5dbb86;;
+    font-weight: bold;
+}
+.test_btn{
+    position: absolute;
+    left: 700px;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 0;
+    border: 1px solid #5dbb86;;
+    padding: 0;
+    color: #5dbb86;;
+    overflow: hidden;
+    background-color: #ffffff;
+    font-weight: bold;
+    line-height: 43px;
+    transition: all 0.4s ease;
+}
+@media all and (max-width: 740px) {
+    .test_btn{
+        left: calc(100vw - 40px);
+    }
+}
+.test_btn > span{
+    line-height: 43px;
+    width: calc(100vw - 40px);
+    max-width: 700px;
+    position: absolute;
+    font-weight: bold;
+    border: 0;
+    margin: 0;
+    right: 0;
+    /* left: 0; */
+    bottom: 0;
+    display: block;
+}
+.input_btn_wrap:hover .test_btn{
+    border: 1px solid #5dbb86;
+    left: 0;
+    width: 100%;
+    max-width: 700px;
+}
 .home_btn_under{
     position: absolute;
     left: 0;
@@ -250,7 +299,10 @@
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-around;
-    width: 40vw;
+    /* width: 40vw; */
+}
+.result_div{
+    width: 350px;
 }
 .product_img{
     animation: fadein 1s;

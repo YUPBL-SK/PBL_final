@@ -24,14 +24,14 @@ loaded_rpm_rf = joblib.load("server/RPM297303_RF1000.joblib")
 def home():
     return render_template('index.html')
 
-@app.route('/csv', methods=['POST'])
-def csvvvv():
-    req = request.get_json()
-    data = req['data']
-    f_out=open('./abcde.csv','w')
-    for line in data:
-        f_out.write(line)
-    f_out.close()
+# @app.route('/csv', methods=['POST'])
+# def csvvvv():
+#     req = request.get_json()
+#     data = req['data']
+#     f_out=open('./abcde.csv','w')
+#     for line in data:
+#         f_out.write(line)
+#     f_out.close()
     
 
 @app.route('/predict', methods=['POST'])

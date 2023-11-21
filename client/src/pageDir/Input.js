@@ -191,18 +191,19 @@ function Input() {
                         alignItems: 'center',
                     },
                     overlay: {
-                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                        backgroundColor: 'rgba(0, 0, 0, 0.3)',
                         zIndex: 30,
                         textAlign: 'center',
                     },
                 }}>
                 <div>
+                    <div><h2>제조 결과</h2></div>
                     <div>
                         {(typeof data.predicted_weight === 'undefined') ? (
                             <p>loding...</p>
                         ) : (
                             <div className={styles.result_box}>
-                                <div>
+                                <div className={styles.result_div}>
                                     {data.is_error ? 
                                     <img src={errimg} width={200} height={200} className={styles.product_img} alt={'이미지를 불러오는데 실패하였습니다.'}/>
                                     :<img src={img} width={200} height={200} className={styles.product_img} alt={'이미지를 불러오는데 실패하였습니다.'}/>
@@ -219,7 +220,7 @@ function Input() {
                                     :<></>
                                 }
                                 {data.recommended_rpm !== -1 ?
-                                    <div>
+                                    <div className={styles.result_div}>
                                         {data.is_rpm_error ? 
                                         <img src={errimg} width={200} height={200} className={styles.product_img} alt={'이미지를 불러오는데 실패하였습니다.'}/>
                                         :<img src={img} width={200} height={200} className={styles.product_img} alt={'이미지를 불러오는데 실패하였습니다.'}/>

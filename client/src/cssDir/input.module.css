@@ -251,7 +251,10 @@
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-around;
-    width: 40vw;
+    /* width: 40vw; */
+}
+.result_div{
+    width: 350px;
 }
 .product_img{
     animation: fadein 1s;
