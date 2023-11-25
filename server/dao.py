@@ -1,4 +1,4 @@
-from flask      import Flask, request, jsonify, current_app
+from flask import Flask, request, jsonify, current_app
 # from flask.json import JSONEncoder
 from sqlalchemy import create_engine, text, insert
 from datetime import datetime

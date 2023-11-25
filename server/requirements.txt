@@ -56,13 +56,11 @@ scikit-learn==1.2.2
 scipy==1.10.1
 seaborn==0.12.2
 six==1.16.0
-sklearn==0.0.post5
 SQLAlchemy==2.0.23
 tensorboard==2.13.0
 tensorboard-data-server==0.7.0
 tensorflow==2.13.0rc1
 tensorflow-estimator==2.13.0rc0
-tensorflow-macos==2.13.0rc1
 termcolor==2.3.0
 threadpoolctl==3.1.0
 tk==0.1.0
