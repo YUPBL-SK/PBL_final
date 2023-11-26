@@ -1,13 +1,14 @@
 .App{
-    height: 100%;
-    min-height: 100%;
+    height: 100vh;
+    min-height: 100vh;
     box-sizing: border-box;
 }
 .home_page{
     text-align: center;
     position: relative;
-    overflow: hidden;
+    /* overflow: scroll; */
     height: auto;
+    width: 100vw;
     min-height: 100%;
     box-sizing: border-box;
 }
@@ -15,43 +16,51 @@
     box-sizing: border-box;
     width: 100%;
     margin: 0 auto;
-    min-height: calc(100vh - 156px);
+    /* min-height: calc(100vh - 156px); */
+    min-height: 788px;
     display: table;
     table-layout: fixed;
 }
 .home_box{
     box-sizing: border-box;
     /* display: table-cell; */
+    min-height: 788px;
     display: flex;
     vertical-align: middle;
 }
 .top_section{
     background-color: transparent;
+    min-height: 788px;
 }
 .bottom_section{
     background-color: rgb(235, 238, 255);
+    min-height: 788px;
 }
 .home_top{
     width: 50vw;
+    min-width: 400px;
     /* max-width: 600px; */
-    height: 100vh;
+    height: calc(100vh - 53px);
+    padding-bottom: 53px;
     /* max-height: 600px; */
     margin: 0 auto;
     display: flex;
     align-items: center;
     flex-direction: column;
-    justify-content: space-evenly;
+    /* justify-content: space-evenly; */
 }
 .home_bottom{
     width: 50vw;
+    min-width: 400px;
     /* max-width: 600px; */
-    height: 100vh;
+    height: calc(100vh - 53px);
+    padding-bottom: 53px;
     /* max-height: 600px; */
     margin: 0 auto;
     display: flex;
     align-items: center;
     flex-direction: column;
-    justify-content: space-around;
+    /* justify-content: space-around; */
 }
 .home_img_box{
     line-height: 0;
@@ -82,7 +91,7 @@
 }
 .home_top_panda{
     margin-top: 0;
-    color: #6c89c6;
+    color: #6E85F1;
 }
 .home_mid_panda{
     margin-top: 0;
@@ -109,13 +118,13 @@
 .home_text{
     text-align: left;
     width: 330px;
-    margin-right: 50px;
+    /* margin-right: 50px; */
     padding-bottom: 50px;
 }
 .home_text:nth-child(1){
     text-align: right;
     width: 330px;
-    margin-left: 50px;
+    /* margin-left: 50px; */
     padding-bottom: 0px;
     padding-top: 50px;
 }
@@ -149,11 +158,11 @@
     line-height: 30px;
     position: absolute;
     left: 0;
-    border: 1px solid #6c89c6;
+    border: 1px solid #6E85F1;
     padding: 0;
     color: white;
     line-height: 43px;
-    background-color: #6c89c6;
+    background-color: #6E85F1;
     font-weight: bold;
 }
 .home_mem_btn{
@@ -169,9 +178,9 @@
     right: 0;
     bottom: 0;
     /* height: 0; */
-    border: 1px solid #6c89c6;
+    border: 1px solid #6E85F1;
     padding: 0;
-    color: #6c89c6;
+    color: #6E85F1;
     overflow: hidden;
     background-color: #ffffff;
     font-weight: bold;
@@ -193,9 +202,9 @@
     right: 0;
     bottom: 0;
     /* height: 0; */
-    border: 1px solid #6c89c6;
+    border: 1px solid #6E85F1;
     padding: 0;
-    color: #6c89c6;
+    color: #6E85F1;
     overflow: hidden;
     background-color: #ffffff;
     font-weight: bold;
@@ -237,47 +246,7 @@
     /* height: 100%; */
     width: 100%;
 }
-/* @media screen and (min-width: 901px){
-    .home_top{flex-direction: row; height: 684px}
-    .home_mid{flex-direction: row; height: 684px}
-    .home_bottom{flex-direction: row; height: 684px}
-}
-@media screen and (max-width: 900px){
-    .home_top{flex-direction: column; height: 800px}
-    .home_mid{flex-direction: column; height: 920px}
-    .home_bottom{flex-direction: column; height: 800px}
-    .home_text{margin-bottom: 50px}
-}
-@media screen and (max-width: 520px){
-    .home_top{flex-direction: column; height: 650px}
-    .home_mid{flex-direction: column; height: 770px}
-    .home_bottom{flex-direction: column; height: 650px}
-    .home_text{margin-bottom: 50px}
-    .home_img_box img{
-        width: 360px;
-        height: 360px;
-    }
-} */
-.footer_div{
-    width: 100%;
-    height: 200px;
-    background-color: rgb(220, 220, 220);
-    transform: translateY(-100%);
-    display: block;
-}
-.footer_div div{
-    padding-left: 100px;
-    padding-top: 3px;
-    color: #1f1f1f;
-}
-.footer_div div:first-child{
-    padding-top: 30px;
-}
-@media screen and (max-width: 400px){
-    .footer_div div{
-        padding-left: 20px;
-    }
-}
+
 .list_wrap{
     width: 100%;
     overflow: hidden;

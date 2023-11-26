@@ -4,10 +4,12 @@ import {Routes, Route, useLocation} from 'react-router-dom';
 import Home from "./pageDir/Home";
 import Input from "./pageDir/Input";
 import InputAll from "./pageDir/InputAll";
+import Navbar from './pageDir/Navbar';
 
 function App() {
   return (
   <TransitionGroup className={'transition-wrapper'}>
+    <Navbar></Navbar>
     <CSSTransition key={useLocation().pathname} timeout={300} classNames={'pages_push_controll'}>
       <div id='root'>
         <Routes>
