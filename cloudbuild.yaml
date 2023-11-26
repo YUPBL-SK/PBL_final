@@ -1,6 +1,6 @@
 steps:
   - name: "gcr.io/cloud-builders/git"
-    args: ["clone", "https://github.com/YUPBL-SK/PBL_final.git", "."]
+    args: ["clone", "https://github.com/YUPBL-SK/PBL_final.git"]
 
   # 다른 빌드 단계 추가 가능 (의존성 설치, 테스트 등)
 
