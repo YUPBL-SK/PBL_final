@@ -11,16 +11,10 @@ steps:
     args: ["cp", "gs://pbl-model/RPM297303_RF1000.joblib", "server/"]
 
   - name: "gcr.io/cloud-builders/docker"
-    args:
-      [
-        "build",
-        "-t",
-        "gcr.io/$PROJECT_ID/pbl-docker/$REPO_NAME:$COMMIT_SHA",
-        ".",
-      ]
+    args: ["build", "-t", "gcr.io/$PROJECT_ID/pbl-docker:$COMMIT_SHA", "."]
 
   - name: "gcr.io/cloud-builders/docker"
-    args: ["push", "gcr.io/$PROJECT_ID/pbl-docker/$REPO_NAME:$COMMIT_SHA"]
+    args: ["push", "gcr.io/$PROJECT_ID/pbl-docker:$COMMIT_SHA"]
 
   - name: "gcr.io/cloud-builders/gcloud"
     args:
@@ -28,4 +22,4 @@ steps:
       - "ssh"
       - "pbl-instance"
       - "--project=$PROJECT_ID"
-      - "--command=docker run -d -p 80:80 gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA"
+      - "--command=docker run -d -p 80:80 gcr.io/$PROJECT_ID/pbl-docker:$COMMIT_SHA"
