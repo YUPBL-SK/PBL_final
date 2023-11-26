@@ -11,7 +11,7 @@ steps:
     args: ["cp", "gs://pbl-model/RPM297303_RF1000.joblib", "server/"]
 
   - name: "gcr.io/cloud-builders/docker"
-    args: ["build", "-t", "gcr.io/pbl_final/pbl_image", "."]
+    args: ["build", "-t", "gcr.io/pbl-docker/pbl_server", "."]
 
   - name: "gcr.io/cloud-builders/docker"
-    args: ["push", "gcr.io/pbl-docker/pbl_image"]
+    args: ["push", "gcr.io/pbl-docker/pbl_server"]
