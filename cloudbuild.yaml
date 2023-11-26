@@ -22,4 +22,5 @@ steps:
       - "ssh"
       - "pbl-instance"
       - "--project=$PROJECT_ID"
-      - "--command=docker run -d -p 80:80 gcr.io/$PROJECT_ID/pbl-docker:$COMMIT_SHA"
+      - "--zone=asia-northeast3-a"
+      - "--command=docker run -d -p 5000:5000 gcr.io/$PROJECT_ID/pbl-docker:$COMMIT_SHA"
