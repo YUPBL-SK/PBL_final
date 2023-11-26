@@ -1,0 +1,17 @@
+steps:
+  - name: "gcr.io/cloud-builders/git"
+    args: ["clone", "https://github.com/YUPBL-SK/PBL_final.git", "."]
+
+  # 다른 빌드 단계 추가 가능 (의존성 설치, 테스트 등)
+
+  - name: "gcr.io/cloud-builders/gsutil"
+    args: ["cp", "gs://pbl-model/1842_RF1000_142dd2.joblib", "server/"]
+
+  - name: "gcr.io/cloud-builders/gsutil"
+    args: ["cp", "gs://pbl-model/RPM297303_RF1000.joblib", "server/"]
+
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["build", "-t", "gcr.io/pbl_final/pbl_image", "."]
+
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "gcr.io/pbl_final/pbl_image"]
