@@ -25,3 +25,4 @@ steps:
       - "--image=gcr.io/$PROJECT_ID/pbl-final:$COMMIT_SHA"
       - "--region=asia-northeast3"
       - "--allow-unauthenticated"
+      - "--memory=1Gi"
