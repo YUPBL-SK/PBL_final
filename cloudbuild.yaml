@@ -18,10 +18,10 @@ steps:
 
   # Deploy to Cloud Run
   - name: "gcr.io/cloud-builders/gcloud"
+    entryoint: gcloud
     args:
       - "run"
       - "deploy"
-      - "pbl-service"
+      - "pbl-docker"
       - "--image=gcr.io/$PROJECT_ID/pbl-docker:$COMMIT_SHA"
-      - "--platform=managed"
       - "--region=asia-northeast3-a"
