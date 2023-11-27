@@ -26,4 +26,4 @@ steps:
       - "--region=asia-northeast3"
       - "--allow-unauthenticated"
       - "--memory=10Gi"
-      - "--cpu=3"
+      - "--cpu=4"
