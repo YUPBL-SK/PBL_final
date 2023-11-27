@@ -28,3 +28,5 @@ steps:
       - "--port=5000"
       - "--memory=10Gi"
       - "--cpu=4"
+      - "--vpc-connector=cloud-run-connector"
+      - "--vpc-egress=all-traffic"
