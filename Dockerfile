@@ -16,4 +16,4 @@ RUN pip install -r requirements.txt
 
 EXPOSE 5000
 
-CMD ["python", "-u", "server/server.py", "34.22.109.222:5000"]
+CMD ["python", "-u", "server/server.py", "0.0.0.0:5000"]
