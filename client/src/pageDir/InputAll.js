@@ -231,12 +231,12 @@ function InputAll(){
         ];
         const read = new FileReader();
         
-        read.onload = function (e) {
+        read.onload = async function (e) {
             const data_list = read.result.split(/(?:\r\n|\r|\n)/g).slice(1);
-            
-            // for(const one_data of data_list){
+            // for (const one_data of data_list){
             for(let i = 0; i < data_list.length-1; i++){
-                setTimeout(() => {
+                i += 1;
+                // setTimeout(() => {
                     const datas = data_list[i].split(",");
                     // const datas = one_data.split(",");
                     const pv_scale = datas[9];
@@ -249,79 +249,151 @@ function InputAll(){
                     };
                     const config = { "Content-Type": 'application/json' };
                     setIsData(false);
-                    axios.post(BackUrl + '/predict', data, config)
-                        .then((response) => {
-                            setIsData(true);
-                            setCount(i+1);
-                            setData(response.data);
-                            // setDataLen(dataLen + 1);
-                            if(response.data.rpm_weight != -1 && !response.data.is_rpm_error){ // rpm 변경했고 불량 아님
-                                success = success + 1;
-                                listSum = listSum + response.data.rpm_weight;
-                                // listBeforeSum = listBeforeSum + response.data.predicted_weight;
-                                data_w = data_w + 3.0;
-                                if(!response.data.is_error){    // 변경 안해도 불량 아님
-                                    success2 = success2 + 1;
-                                    listBeforeSum = listBeforeSum + response.data.predicted_weight;
-                                    data_w2 = data_w2 + 3.0;
-                                } else{ // 변경 안하면 불량
-                                    faile2 = faile2 + 1;
-                                    faileSum2 = faileSum2 + response.data.predicted_weight;
-                                }
-                            }else if(response.data.rpm_weight == -1 && !response.data.is_error){    // rpm 변경 없고 불량 아님
-                                success = success + 1;
+                    try{
+                        const response = await axios.post(BackUrl + '/predict', data, config)
+                        // .then((response) => {
+                        //     setIsData(true);
+                        //     setCount(i+1);
+                        //     setData(response.data);
+                        //     // setDataLen(dataLen + 1);
+                        //     if(response.data.rpm_weight != -1 && !response.data.is_rpm_error){ // rpm 변경했고 불량 아님
+                        //         success = success + 1;
+                        //         listSum = listSum + response.data.rpm_weight;
+                        //         // listBeforeSum = listBeforeSum + response.data.predicted_weight;
+                        //         data_w = data_w + 3.0;
+                        //         if(!response.data.is_error){    // 변경 안해도 불량 아님
+                        //             success2 = success2 + 1;
+                        //             listBeforeSum = listBeforeSum + response.data.predicted_weight;
+                        //             data_w2 = data_w2 + 3.0;
+                        //         } else{ // 변경 안하면 불량
+                        //             faile2 = faile2 + 1;
+                        //             faileSum2 = faileSum2 + response.data.predicted_weight;
+                        //         }
+                        //     }else if(response.data.rpm_weight == -1 && !response.data.is_error){    // rpm 변경 없고 불량 아님
+                        //         success = success + 1;
+                        //         success2 = success2 + 1;
+                        //         listSum = listSum + response.data.predicted_weight;
+                        //         listBeforeSum = listBeforeSum + response.data.predicted_weight;
+                        //         data_w = data_w + 3.0;
+                        //         data_w2 = data_w2 + 3.0;
+                        //     }else if(response.data.rpm_weight != -1 && response.data.is_rpm_error){ // rpm 변경 하고 불량
+                        //         faile = faile + 1;
+                        //         faileSum = faileSum + response.data.predicted_weight;
+                        //         if(response.data.is_error){ // 변경 전에도 불량
+                        //             faile2 = faile2 + 1;
+                        //             faileSum2 = faileSum2 + response.data.predicted_weight;
+                        //         } else{ // 변경 안했으면 양품
+                        //             success2 = success2 + 1;
+                        //             listBeforeSum = listBeforeSum + response.data.predicted_weight;
+                        //             data_w2 = data_w2 + 3.0;
+                        //         }
+                        //     }else if(response.data.rpm_weight == -1 && response.data.is_error){ // rpm 변경 없고 불량
+                        //         faile = faile + 1;
+                        //         faile2 = faile2 + 1;
+                        //         faileSum = faileSum + response.data.predicted_weight;
+                        //         faileSum2 = faileSum2 + response.data.predicted_weight;
+                        //     }
+                        //     graphData[0].data.push({
+                        //         "x": i+1,
+                        //         "y": response.data.predicted_weight
+                        //     });
+                        //     if(response.data.rpm_weight == -1){
+                        //         graphData[1].data.push({
+                        //             "x": i+1,
+                        //             "y": response.data.predicted_weight
+                        //         });
+                        //     }
+                        //     else{
+                        //         graphData[1].data.push({
+                        //             "x": i+1,
+                        //             "y": response.data.rpm_weight
+                        //         });
+                        //     }
+                        //     // openModal();
+                        //     if(i+1 >= data_list.length-1){
+                        //         setTimeout(() => {
+                        //             graphData[0].data.sort((n,m)=>n.x - m.x);
+                        //             graphData[1].data.sort((n,m)=>n.x - m.x);
+                        //             // closeModal();
+                        //             openModal2();
+                        //         }, 0)
+                        //     }
+                        // })
+                        // .catch(error => {
+                        //     console.log(error)
+                        // });
+                        setIsData(true);
+                        setCount(i+1);
+                        setData(response.data);
+                        if(response.data.rpm_weight != -1 && !response.data.is_rpm_error){ // rpm 변경했고 불량 아님
+                            success = success + 1;
+                            listSum = listSum + response.data.rpm_weight;
+                            data_w = data_w + 3.0;
+                            if(!response.data.is_error){    // 변경 안해도 불량 아님
                                 success2 = success2 + 1;
-                                listSum = listSum + response.data.predicted_weight;
                                 listBeforeSum = listBeforeSum + response.data.predicted_weight;
-                                data_w = data_w + 3.0;
                                 data_w2 = data_w2 + 3.0;
-                            }else if(response.data.rpm_weight != -1 && response.data.is_rpm_error){ // rpm 변경 하고 불량
-                                faile = faile + 1;
-                                faileSum = faileSum + response.data.predicted_weight;
-                                if(response.data.is_error){ // 변경 전에도 불량
-                                    faile2 = faile2 + 1;
-                                    faileSum2 = faileSum2 + response.data.predicted_weight;
-                                } else{ // 변경 안했으면 양품
-                                    success2 = success2 + 1;
-                                    listBeforeSum = listBeforeSum + response.data.predicted_weight;
-                                    data_w2 = data_w2 + 3.0;
-                                }
-                            }else if(response.data.rpm_weight == -1 && response.data.is_error){ // rpm 변경 없고 불량
-                                faile = faile + 1;
+                            } else{ // 변경 안하면 불량
                                 faile2 = faile2 + 1;
-                                faileSum = faileSum + response.data.predicted_weight;
                                 faileSum2 = faileSum2 + response.data.predicted_weight;
                             }
-                            graphData[0].data.push({
-                                "x": i+1,
+                        }else if(response.data.rpm_weight == -1 && !response.data.is_error){    // rpm 변경 없고 불량 아님
+                            success = success + 1;
+                            success2 = success2 + 1;
+                            listSum = listSum + response.data.predicted_weight;
+                            listBeforeSum = listBeforeSum + response.data.predicted_weight;
+                            data_w = data_w + 3.0;
+                            data_w2 = data_w2 + 3.0;
+                        }else if(response.data.rpm_weight != -1 && response.data.is_rpm_error){ // rpm 변경 하고 불량
+                            faile = faile + 1;
+                            faileSum = faileSum + response.data.predicted_weight;
+                            if(response.data.is_error){ // 변경 전에도 불량
+                                faile2 = faile2 + 1;
+                                faileSum2 = faileSum2 + response.data.predicted_weight;
+                            } else{ // 변경 안했으면 양품
+                                success2 = success2 + 1;
+                                listBeforeSum = listBeforeSum + response.data.predicted_weight;
+                                data_w2 = data_w2 + 3.0;
+                            }
+                        }else if(response.data.rpm_weight == -1 && response.data.is_error){ // rpm 변경 없고 불량
+                            faile = faile + 1;
+                            faile2 = faile2 + 1;
+                            faileSum = faileSum + response.data.predicted_weight;
+                            faileSum2 = faileSum2 + response.data.predicted_weight;
+                        }
+                        graphData[0].data.push({
+                            "x": i + 1,
+                            "y": response.data.predicted_weight
+                        });
+                        if (response.data.rpm_weight == -1) {
+                            graphData[1].data.push({
+                                "x": i + 1,
                                 "y": response.data.predicted_weight
                             });
-                            if(response.data.rpm_weight == -1){
-                                graphData[1].data.push({
-                                    "x": i+1,
-                                    "y": response.data.predicted_weight
-                                });
-                            }
-                            else{
-                                graphData[1].data.push({
-                                    "x": i+1,
-                                    "y": response.data.rpm_weight
-                                });
-                            }
-                            // openModal();
-                            if(i+1 >= data_list.length-1){
-                                setTimeout(() => {
-                                    graphData[0].data.sort((n,m)=>n.x - m.x);
-                                    graphData[1].data.sort((n,m)=>n.x - m.x);
-                                    // closeModal();
-                                    openModal2();
-                                }, 0)
-                            }
-                        })
-                        .catch(error => {
-                            console.log(error)
-                        });
-                }, 0);
+                        }
+                        else {
+                            graphData[1].data.push({
+                                "x": i + 1,
+                                "y": response.data.rpm_weight
+                            });
+                        }
+                        openModal();
+                        if (i + 1 >= data_list.length - 1) {
+                            // setTimeout(() => {
+                            //     graphData[0].data.sort((n, m) => n.x - m.x);
+                            //     graphData[1].data.sort((n, m) => n.x - m.x);
+                            //     closeModal();
+                            //     openModal2();
+                            // }, 0)
+                            graphData[0].data.sort((n, m) => n.x - m.x);
+                            graphData[1].data.sort((n, m) => n.x - m.x);
+                            closeModal();
+                            openModal2();
+                        }
+                    }catch(err){
+                        console.log(err);
+                    }
+                // }, 0);
             }
         };
         read.readAsText(files[0]);
