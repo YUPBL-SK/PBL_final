@@ -9,6 +9,8 @@ import nextimg from '../imgDir/next.png'
 import ReactFileReader from "react-file-reader";
 import MyResponsiveLine from './Graph';
 
+const BackUrl = 'https://pbl-final-yvbcumjjwq-du.a.run.app';
+const LocalUrl = 'http://127.0.0.1:5000';
 let listSum = 0;    // rpm 변경을 하면서 얻은 중량 총량
 let listBeforeSum = 0;  // rpm 변경 하지 않을시 중량 총량
 let success = 0;    // rpm 변경 시 양품 갯수
@@ -52,11 +54,8 @@ function InputAll(){
     const [modalOpen4, setModalOpen4] = useState(false);
     const [modalOpen5, setModalOpen5] = useState(false);
     const movePage = useNavigate();
-    
-    // const [listSum, setListSum] = useState(0);
-    // const [dataLen, setDataLen] = useState(0);
 
-    const handleFileChangeTest = (files) => {    //csv 업로드
+    const handleFileChangeTest = (files) => {    //csv 업로드 테스트
         listSum = 0;
         faile = 0;
         faile2 = 0;
@@ -90,10 +89,7 @@ function InputAll(){
             },
         ];
         const read = new FileReader();
-        // when readAsText will invoke, onload() method on the read object will execute.
         read.onload = function (e) {
-            // perform some operations with read data
-            // setListSum(0);
             const data_list = read.result.split(/(?:\r\n|\r|\n)/g).slice(1);
             
             // for(const one_data of data_list){
@@ -113,16 +109,14 @@ function InputAll(){
                     };
                     const config = { "Content-Type": 'application/json' };
                     setIsData(false);
-                    axios.post('https://pbl-final-yvbcumjjwq-du.a.run.app/predict', data, config)
+                    axios.post(BackUrl + '/predict', data, config)
                         .then((response) => {
                             setIsData(true);
                             setCount(i+1);
                             setData(response.data);
-                            // setDataLen(dataLen + 1);
                             if(response.data.rpm_weight != -1 && !response.data.is_rpm_error){ // rpm 변경했고 불량 아님
                                 success = success + 1;
                                 listSum = listSum + response.data.rpm_weight;
-                                // listBeforeSum = listBeforeSum + response.data.predicted_weight;
                                 data_w = data_w + 3.0;
                                 if(!response.data.is_error){    // 변경 안해도 불량 아님
                                     success2 = success2 + 1;
@@ -187,26 +181,27 @@ function InputAll(){
                                     "y": response.data.rpm_weight
                                 });
                             }
-                            // setListSum(listSum + response.data.rpm_weight);
                             openModal4();
+                            if(i+1 >= data_list.length-1){
+                                setTimeout(() => {
+                                    graphData[0].data.sort((n,m)=>n.x - m.x);
+                                    graphData[1].data.sort((n,m)=>n.x - m.x);
+                                    graphData[2].data.sort((n,m)=>n.x - m.x);
+                                    closeModal4();
+                                    openModal3();
+                                }, (i+1) * 2000)
+                            }
                         })
                         .catch(error => {
                             console.log(error)
                         });
                 }, i * 2000);
-                if(i+1 >= data_list.length-1){
-                    setTimeout(() => {
-                        closeModal4();
-                        openModal3();
-                    }, (i+1) * 2000)
-                }
             }
         };
-        // Invoking the readAsText() method by passing the uploaded file as a parameter
         read.readAsText(files[0]);
     };
 
-    const handleFileChange = (files) => {    //csv 업로드
+    const handleFileChange = (files) => {    //csv 업로드 실제
         listSum = 0;
         faile = 0;
         faile2 = 0;
@@ -235,10 +230,8 @@ function InputAll(){
             },
         ];
         const read = new FileReader();
-        // when readAsText will invoke, onload() method on the read object will execute.
+        
         read.onload = function (e) {
-            // perform some operations with read data
-            // setListSum(0);
             const data_list = read.result.split(/(?:\r\n|\r|\n)/g).slice(1);
             
             // for(const one_data of data_list){
@@ -256,14 +249,11 @@ function InputAll(){
                     };
                     const config = { "Content-Type": 'application/json' };
                     setIsData(false);
-                    axios.post('https://pbl-final-yvbcumjjwq-du.a.run.app/predict', data, config)
+                    axios.post(BackUrl + '/predict', data, config)
                         .then((response) => {
                             setIsData(true);
                             setCount(i+1);
                             setData(response.data);
-                            let newGraphData = {
-
-                            }
                             // setDataLen(dataLen + 1);
                             if(response.data.rpm_weight != -1 && !response.data.is_rpm_error){ // rpm 변경했고 불량 아님
                                 success = success + 1;
@@ -302,7 +292,6 @@ function InputAll(){
                                 faileSum = faileSum + response.data.predicted_weight;
                                 faileSum2 = faileSum2 + response.data.predicted_weight;
                             }
-                            // setListSum(listSum + response.data.rpm_weight);
                             graphData[0].data.push({
                                 "x": i+1,
                                 "y": response.data.predicted_weight
@@ -319,21 +308,22 @@ function InputAll(){
                                     "y": response.data.rpm_weight
                                 });
                             }
-                            openModal();
+                            // openModal();
+                            if(i+1 >= data_list.length-1){
+                                setTimeout(() => {
+                                    graphData[0].data.sort((n,m)=>n.x - m.x);
+                                    graphData[1].data.sort((n,m)=>n.x - m.x);
+                                    // closeModal();
+                                    openModal2();
+                                }, 0)
+                            }
                         })
                         .catch(error => {
                             console.log(error)
                         });
-                }, i * 2000);
-                if(i+1 >= data_list.length-1){
-                    setTimeout(() => {
-                        closeModal();
-                        openModal2();
-                    }, (i+1) * 2000)
-                }
+                }, 0);
             }
         };
-        // Invoking the readAsText() method by passing the uploaded file as a parameter
         read.readAsText(files[0]);
     };
     

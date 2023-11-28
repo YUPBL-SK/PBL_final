@@ -13,14 +13,3 @@ db = {
 }
 
 DB_URL = f"mysql+mysqlconnector://{db['user']}:{db['password']}@{db['host']}:{db['port']}/{db['database']}?charset=utf8"
-# DB = {
-#     'drivername': 'mysql',
-#     'host': '127.0.0.1',
-#     'port': '3306',
-#     'username': 'flask_user',
-#     'password': '1234',
-#     'database': 'FlaskDB',
-#     'query': {'charset':'utf8'}
-# }
-
-#engine = create_engine(URL(**DB))

@@ -8,6 +8,8 @@ import errimg from '../imgDir/err_product.png'
 import nextimg from '../imgDir/next.png'
 
 const num_regex = /^\d{0,}\.{0,1}\d{1,}$/i;
+const BackUrl = 'https://pbl-final-yvbcumjjwq-du.a.run.app';
+const LocalUrl = 'http://127.0.0.1:5000';
 
 function Input() {
     const [data, setData] = useState([{}]);
@@ -19,25 +21,6 @@ function Input() {
     let [k_rpm_pv, setKrpmpv] = useState('');
     let [n_temp_pv, setNtemppv] = useState('');
     let [s_temp_pv, setStemppv] = useState('');
-
-    // useEffect(() => {
-    //     const data = {
-    //         'E_scr_pv': 8,
-    //         'c_temp_pv': 69.6,
-    //         'k_rpm_pv': 189,
-    //         'n_temp_pv': 67.2,
-    //         's_temp_pv': 67.1,
-    //     };
-    //     const config = { "Content-Type": 'application/json' };
-    //     axios.post('http://127.0.0.1:5000/predict', data, config)
-    //         .then((response) => {
-    //             console.log(response)
-    //             setData(response.data);
-    //         })
-    //         .catch(error => {
-    //             console.log(error)
-    //         });
-    // }, [])
     
     const changeScrrpv = (e) =>{
         const value = e.target.value;
@@ -107,13 +90,6 @@ function Input() {
             alert('s_temp_pv를 입력해 주세요.');
             return false;
         }
-        // const data = {
-        //     'E_scr_pv': 8,
-        //     'c_temp_pv': 69.6,
-        //     'k_rpm_pv': 189,
-        //     'n_temp_pv': 67.2,
-        //     's_temp_pv': 67.1,
-        // };
         const data = {
             'E_scr_pv': E_scr_pv,
             'c_temp_pv': c_temp_pv,
@@ -122,7 +98,7 @@ function Input() {
             's_temp_pv': s_temp_pv,
         };
         const config = { "Content-Type": 'application/json' };
-        axios.post('https://pbl-final-yvbcumjjwq-du.a.run.app/predict', data, config)
+        axios.post(BackUrl + '/predict', data, config)
             .then((response) => {
                 setData(response.data);
                 openModal();
