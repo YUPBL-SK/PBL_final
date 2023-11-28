@@ -122,7 +122,7 @@ function Input() {
             's_temp_pv': s_temp_pv,
         };
         const config = { "Content-Type": 'application/json' };
-        axios.post('http://127.0.0.1:5000/predict', data, config)
+        axios.post('https://pbl-final-yvbcumjjwq-du.a.run.app/predict', data, config)
             .then((response) => {
                 setData(response.data);
                 openModal();
@@ -183,7 +183,6 @@ function Input() {
                 style={{
                     content: {
                         margin: '0 auto',
-                        marginTop:'10px',
                         height: '80vh',
                         backgroundColor: 'whitesmoke',
                         display: 'flex',
@@ -196,51 +195,56 @@ function Input() {
                         textAlign: 'center',
                     },
                 }}>
-                <div>
-                    <div><h2>제조 결과</h2></div>
-                    <div>
+                <div className={styles.result_wrap}>
+                    <div className={styles.result_title}><h2>제조 결과</h2></div>
+                    <div className={styles.result_box}>
                         {(typeof data.predicted_weight === 'undefined') ? (
                             <p>loding...</p>
-                        ) : (
-                            <div className={styles.result_box}>
+                        ) : data.recommended_rpm !== -1 ? 
+                            <div className={styles.result_boxR}>
                                 <div className={styles.result_div}>
                                     {data.is_error ? 
                                     <img src={errimg} width={200} height={200} className={styles.product_img} alt={'이미지를 불러오는데 실패하였습니다.'}/>
                                     :<img src={img} width={200} height={200} className={styles.product_img} alt={'이미지를 불러오는데 실패하였습니다.'}/>
                                     }
                                     <p> - </p>
-                                    {data.recommended_rpm !== -1 ?
                                     <h2>기존 예상 중량 : {data.predicted_weight}</h2>
-                                    :<h2>예상 중량 : {data.predicted_weight}</h2>
-                                    }
                                     <p> - </p>
                                 </div>
-                                {data.recommended_rpm !== -1 ? 
-                                    <img src={nextimg} width={200} height={200} className={styles.next_img} alt={'이미지를 불러오는데 실패하였습니다.'}/>
-                                    :<></>
-                                }
-                                {data.recommended_rpm !== -1 ?
-                                    <div className={styles.result_div}>
+                                <img src={nextimg} width={200} height={200} className={styles.next_img} alt={'이미지를 불러오는데 실패하였습니다.'}/>
+                                <div className={styles.result_div}>
                                         {data.is_rpm_error ? 
                                         <img src={errimg} width={200} height={200} className={styles.product_img} alt={'이미지를 불러오는데 실패하였습니다.'}/>
                                         :<img src={img} width={200} height={200} className={styles.product_img} alt={'이미지를 불러오는데 실패하였습니다.'}/>
                                         }
-                                        {data.recommended_rpm === -1 ? <p>칼날 RPM 유지</p> : 
                                         <div>
                                             <p>추천 칼날 RPM : {data.recommended_rpm}</p>
                                             <h2>RPM 변경 후 예상 중량 : {data.rpm_weight}</h2>
                                             <h3>중량 차이 : {Math.round(Math.abs(data.predicted_weight - data.rpm_weight)*1000)/1000}</h3>
                                         </div>
-                                        }
-                                    </div>:
-                                    <></>
-                                }
+                                    </div>
                             </div>
-                        )}
+                            :
+                            <div className={styles.result_boxN}>
+                                <div className={styles.result_div}>
+                                    {data.is_error ? 
+                                    <img src={errimg} width={200} height={200} className={styles.product_img} alt={'이미지를 불러오는데 실패하였습니다.'}/>
+                                    :<img src={img} width={200} height={200} className={styles.product_img} alt={'이미지를 불러오는데 실패하였습니다.'}/>
+                                    }
+                                    <p> - </p>
+                                    <h2>예상 중량 : {data.predicted_weight}</h2>
+                                    <p> - </p>
+                                </div>
+                                <></>
+                                <></>
+                            </div>
+                        }
                     </div>
+                    <div className={styles.input_btn_wrap_div}>
                     <div className={styles.input_btn_wrap}>
                         <button className={styles.cancel_btn_under} onClick={closeModal}>OK</button>
                         <button className={styles.cancel_btn} onClick={closeModal}><span>OK</span></button>
+                    </div>
                     </div>
                 </div>
             </Modal>
