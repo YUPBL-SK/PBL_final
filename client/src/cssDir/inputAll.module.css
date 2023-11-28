@@ -6,7 +6,6 @@
 .input_page{
     text-align: center;
     position: relative;
-    /* overflow: hidden; */
     height: auto;
     min-height: 100%;
     box-sizing: border-box;
@@ -18,7 +17,6 @@
     max-width: 700px;
     margin: 0 auto;
     height: 100%;
-    /* min-height: calc(100vh - 156px); */
     min-height: 655px;
     display: table;
     table-layout: fixed;
@@ -27,6 +25,8 @@
     box-sizing: border-box;
     display: table-cell;
     vertical-align: middle;
+    /* overflow: hidden; */
+    width: 100%;
     height: 100%;
 }
 .input_head{
@@ -36,7 +36,8 @@
 
 .input_form{
     box-sizing: border-box;
-    overflow: hidden;
+    /* overflow: hidden; */
+    position: relative;
 }
 .input_btn_wrap_div{
     justify-content: center;
@@ -77,6 +78,7 @@
     width: 100%;
     height: 45px;
     text-align: center;
+    overflow: hidden;
     line-height: 43px;
     margin-top: 6px;
 }
@@ -93,7 +95,6 @@
 .input_btn{
     position: absolute;
     left: 0;
-    right: 0;
     bottom: 0;
     height: 100%;
     width: 0;
@@ -104,7 +105,6 @@
     background-color: #ffffff;
     font-weight: bold;
     line-height: 43px;
-    transition: height 0.4s ease;
     transition: width 0.4s ease;
 }
 .input_btn > span{
@@ -136,7 +136,6 @@
 .test_btn{
     position: absolute;
     left: 700px;
-    right: 0;
     bottom: 0;
     height: 100%;
     width: 0;
@@ -186,7 +185,6 @@
 .home_btn{
     position: absolute;
     left: 700px;
-    right: 0;
     bottom: 0;
     height: 100%;
     width: 0;
@@ -317,9 +315,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* align-items: stretch; */
     position: relative;
-    /* position: absolute; */
 }
 .result_title{
     position: absolute;
@@ -330,17 +326,14 @@
 .result_box{
     display: flex;
     flex-wrap: nowrap;
-    /* justify-content: space-around; */
     justify-content: flex-start;
     align-items: center;
     width: 100%;
     position: absolute;
-    /* left: max(calc(50% - 725px), 0px); */
 }
 .result_boxR{
     display: flex;
     flex-wrap: nowrap;
-    /* justify-content: space-around; */
     justify-content: flex-start;
     align-items: center;
     width: 100%;
@@ -350,7 +343,6 @@
 .result_boxN{
     display: flex;
     flex-wrap: nowrap;
-    /* justify-content: space-around; */
     justify-content: flex-start;
     align-items: center;
     width: 100%;
@@ -360,7 +352,6 @@
 .result_box3{
     display: flex;
     flex-wrap: nowrap;
-    /* justify-content: space-around; */
     justify-content: flex-start;
     align-items: center;
     width: 100%;

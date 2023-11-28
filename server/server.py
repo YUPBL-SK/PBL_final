@@ -24,16 +24,6 @@ loaded_rpm_rf = joblib.load("server/RPM297303_RF1000.joblib")
 def home():
     return render_template('index.html')
 
-# @app.route('/csv', methods=['POST'])
-# def csvvvv():
-#     req = request.get_json()
-#     data = req['data']
-#     f_out=open('./abcde.csv','w')
-#     for line in data:
-#         f_out.write(line)
-#     f_out.close()
-    
-
 @app.route('/predict', methods=['POST'])
 def predict():
     req = request.get_json()
@@ -90,7 +80,6 @@ def predict():
         ac3 = True
     
     time = datetime.now()
-    #insert_data(time, scr, c_temp, rpm, n_temp, round(predicted_w[0],3), s_temp)
     if index == 0:
         insert_barwell(time, scr, c_temp, rpm, n_temp, round(predicted_w[0],3), s_temp)
         return jsonify({ "predicted_weight" : round(predicted_w[0],3),

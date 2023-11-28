@@ -6,7 +6,6 @@
 .input_page{
     text-align: center;
     position: relative;
-    /* overflow: hidden; */
     height: auto;
     min-height: 100%;
     box-sizing: border-box;
@@ -18,7 +17,6 @@
     max-width: 700px;
     margin: 0 auto;
     height: 100%;
-    /* min-height: calc(100vh - 156px); */
     min-height: 708px;
     display: table;
     table-layout: fixed;
@@ -27,6 +25,7 @@
     box-sizing: border-box;
     display: table-cell;
     vertical-align: middle;
+    width: 100%;
     height: 100%;
 }
 .input_head{
@@ -36,9 +35,10 @@
 
 .input_form{
     box-sizing: border-box;
+    overflow: hidden;
 }
 
-.input, .input_btn_under, .input_btn, .home_btn, .home_btn_under, .cancel_btn, .cancel_btn_under{
+.input, .input_btn_under, .input_btn, .home_btn, .home_btn_under, .ok_btn, .ok_btn_under{
     border: none;
     cursor: pointer;
     outline: none;
@@ -70,6 +70,7 @@
     display: block;
     width: 100%;
     height: 45px;
+    overflow: hidden;
     text-align: center;
     line-height: 43px;
     margin-top: 6px;
@@ -157,7 +158,7 @@
 }
 @media all and (max-width: 740px) {
     .home_btn{
-        left: calc(100vw - 40px);
+        left: calc(100vw - 42px);
     }
 }
 .home_btn > span{
@@ -169,7 +170,6 @@
     border: 0;
     margin: 0;
     right: 0;
-    /* left: 0; */
     bottom: 0;
     display: block;
 }
@@ -179,7 +179,7 @@
     width: 100%;
     max-width: 700px;
 }
-.cancel_btn_under{
+.ok_btn_under{
     position: absolute;
     left: 0;
     border: 1px solid black;
@@ -190,7 +190,7 @@
     font-weight: bold;
 }
 
-.cancel_btn{
+.ok_btn{
     position: absolute;
     left: 0;
     right: 0;
@@ -205,7 +205,7 @@
     line-height: 43px;
     transition: all 0.4s ease;
 }
-.cancel_btn > span{
+.ok_btn > span{
     line-height: 43px;
     position: absolute;
     font-weight: bold;
@@ -216,7 +216,7 @@
     bottom: 0;
     display: block;
 }
-.input_btn_wrap:hover .cancel_btn{
+.input_btn_wrap:hover .ok_btn{
     border: 1px solid #6c89c6;
     height: 100%;
 }
@@ -266,9 +266,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* align-items: stretch; */
     position: relative;
-    /* position: absolute; */
 }
 .result_title{
     position: absolute;
@@ -279,17 +277,14 @@
 .result_box{
     display: flex;
     flex-wrap: nowrap;
-    /* justify-content: space-around; */
     justify-content: flex-start;
     align-items: center;
     width: 100%;
     position: absolute;
-    /* left: max(calc(50% - 725px), 0px); */
 }
 .result_boxR{
     display: flex;
     flex-wrap: nowrap;
-    /* justify-content: space-around; */
     justify-content: flex-start;
     align-items: center;
     width: 100%;
@@ -299,7 +294,6 @@
 .result_boxN{
     display: flex;
     flex-wrap: nowrap;
-    /* justify-content: space-around; */
     justify-content: flex-start;
     align-items: center;
     width: 100%;

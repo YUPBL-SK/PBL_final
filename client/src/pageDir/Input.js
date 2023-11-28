@@ -1,27 +1,29 @@
 import { useNavigate } from 'react-router-dom';
 import styles from "../cssDir/input.module.css";
 import axios from "axios";
-import { React, useState, useEffect } from 'react';
+import { React, useState } from 'react';
 import Modal from 'react-modal';
 import img from '../imgDir/product.PNG'
 import errimg from '../imgDir/err_product.png'
 import nextimg from '../imgDir/next.png'
 
-const num_regex = /^\d{0,}\.{0,1}\d{1,}$/i;
-const BackUrl = 'https://pbl-final-yvbcumjjwq-du.a.run.app';
-const LocalUrl = 'http://127.0.0.1:5000';
+const num_regex = /^\d{0,}\.{0,1}\d{1,}$/i; // 숫자 정규식
+
+const BackUrl = 'https://pbl-final-yvbcumjjwq-du.a.run.app';    // 배포 서버로 실행할 때 주소
+const LocalUrl = 'http://127.0.0.1:5000';   // 로컬로 실행할 때 주소
 
 function Input() {
-    const [data, setData] = useState([{}]);
-    const [modalOpen, setModalOpen] = useState(false);
+    const [data, setData] = useState([{}]);             // 서버에서 받아온 중량 예측 데이터
+    const [modalOpen, setModalOpen] = useState(false);  // 결과 모달 상태
     const movePage = useNavigate();
-    
+    // 입력 값
     let [E_scr_pv, setEscrpv] = useState('');
     let [c_temp_pv, setCtemppv] = useState('');
     let [k_rpm_pv, setKrpmpv] = useState('');
     let [n_temp_pv, setNtemppv] = useState('');
     let [s_temp_pv, setStemppv] = useState('');
     
+    // 입력값 변경 함수
     const changeScrrpv = (e) =>{
         const value = e.target.value;
         setEscrpv(value);
@@ -42,14 +44,20 @@ function Input() {
         const value = e.target.value;
         setStemppv(value);
     }
+
+    // 에러 문구
     const num_error = '***숫자를 입력해 주세요.***';
     
+    // 홈화면 이동 함수
     function goHome(){
         movePage('/');
         window.location.reload();
     }
+
+    // 서버로 예측 입력 전송 함수
     const input = (e) => {
         e.preventDefault();
+        // 입력값 검증
         if (!num_regex.test(E_scr_pv)) {
             alert('정확한 E_scr_pv를 입력해 주세요.');
             return false;
@@ -90,6 +98,7 @@ function Input() {
             alert('s_temp_pv를 입력해 주세요.');
             return false;
         }
+        // request 데이터 생성
         const data = {
             'E_scr_pv': E_scr_pv,
             'c_temp_pv': c_temp_pv,
@@ -100,24 +109,28 @@ function Input() {
         const config = { "Content-Type": 'application/json' };
         axios.post(BackUrl + '/predict', data, config)
             .then((response) => {
-                setData(response.data);
-                openModal();
+                setData(response.data); // 예측값 등록
+                openModal();    // 결과 모달 열기
             })
             .catch(error => {
                 console.log(error)
             });
     }
+
     const handleOnKeyPress = e => {
         if (e.key === 'Enter') {
             input(e); // Enter 입력이 되면 클릭 이벤트 실행
         }
     };
+
+    // 모달 열고 닫는 함수
     const openModal = () => {
         setModalOpen(true);
     }
     const closeModal = () => {
         setModalOpen(false);
     }
+
     return (
         <div className={styles.App}>
             <div className={styles.input_page}>
@@ -154,7 +167,6 @@ function Input() {
             <Modal
                 isOpen={modalOpen}
                 onRequestClose={closeModal}
-                // onClick={closeExitChatModal}
                 ariaHideApp={false}
                 style={{
                     content: {
@@ -218,8 +230,8 @@ function Input() {
                     </div>
                     <div className={styles.input_btn_wrap_div}>
                     <div className={styles.input_btn_wrap}>
-                        <button className={styles.cancel_btn_under} onClick={closeModal}>OK</button>
-                        <button className={styles.cancel_btn} onClick={closeModal}><span>OK</span></button>
+                        <button className={styles.ok_btn_under} onClick={closeModal}>OK</button>
+                        <button className={styles.ok_btn} onClick={closeModal}><span>OK</span></button>
                     </div>
                     </div>
                 </div>
