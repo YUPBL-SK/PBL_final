@@ -238,7 +238,6 @@ function InputAll(){
             // for(let i = 0; i < data_list.length-1; i++){
                 // setTimeout(() => {
                     // const datas = data_list[i].split(",");
-                    i += 1;
                     const datas = one_data.split(",");
                     const pv_scale = datas[9];
                     const data = {
@@ -391,6 +390,7 @@ function InputAll(){
                             closeModal();
                             openModal2();
                         }
+                        i += 1;
                     }catch(err){
                         console.log(err);
                     }
