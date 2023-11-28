@@ -233,12 +233,13 @@ function InputAll(){
         
         read.onload = async function (e) {
             const data_list = read.result.split(/(?:\r\n|\r|\n)/g).slice(1);
-            // for (const one_data of data_list){
-            for(let i = 0; i < data_list.length-1; i++){
-                i += 1;
+            let i = 0;
+            for await(const one_data of data_list){
+            // for(let i = 0; i < data_list.length-1; i++){
                 // setTimeout(() => {
-                    const datas = data_list[i].split(",");
-                    // const datas = one_data.split(",");
+                    // const datas = data_list[i].split(",");
+                    i += 1;
+                    const datas = one_data.split(",");
                     const pv_scale = datas[9];
                     const data = {
                         'E_scr_pv': datas[1],
