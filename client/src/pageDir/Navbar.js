@@ -10,6 +10,9 @@ import oneImgs from '../imgDir/oneImg_nav1.png';
 import csvImg from '../imgDir/csvImg_nav.png';
 import hover_csvImg from '../imgDir/csvImg_navh.png';
 import csvImgs from '../imgDir/csvImg_nav1.png';
+import dbImg from '../imgDir/dbImg_nav.png';
+import hover_dbImg from '../imgDir/dbImg_navh.png';
+import dbImgs from '../imgDir/dbImg_nav1.png';
 import { useLocation } from 'react-router-dom';
 
 
@@ -31,7 +34,10 @@ function Navbar() {
         movePage('/pages/input');
     }
     function goInputAll() {
-        movePage('/pages/inputAll');
+        movePage('/pages/input-all');
+    }
+    function goDataList() {
+        movePage('/pages/data-list');
     }
     
     return (
@@ -41,7 +47,8 @@ function Navbar() {
                     <li className={styles.tlist_item} onClick={goHome}>
                         <a className={styles.tlist_item_a}>
                         <div className={styles.logo_img_wrap}>
-                            <img src={hover_logo} width={50} height={50} className={styles.hover_logo_img}></img>
+                            {path_len != 2 ? <img src={hover_logo} width={50} height={50} className={styles.hover_logo_img}></img>:
+                            <img src={logos} width={50} height={50} className={styles.hover_logo_img}></img>}
                             {path_len != 2 ? <img src={logo} width={50} height={50} className={styles.logo_img}></img>:
                             <img src={logos} width={50} height={50} className={styles.logo_img}></img>}
                         </div>
@@ -50,7 +57,8 @@ function Navbar() {
                     <li className={styles.tlist_item} onClick={goInput}>
                         <a className={styles.tlist_item_a}>
                         <div className={styles.logo_img_wrap}>
-                            <img src={hover_oneImg} width={50} height={50} className={styles.hover_logo_img}></img>
+                            {path_len == 2 || path !== 'input' ? <img src={hover_oneImg} width={50} height={50} className={styles.hover_logo_img}></img>:
+                            <img src={oneImgs} width={50} height={50} className={styles.hover_logo_img}></img>}
                             {path_len == 2 || path !== 'input' ? <img src={oneImg} width={50} height={50} className={styles.logo_img}></img>:
                             <img src={oneImgs} width={50} height={50} className={styles.logo_img}></img>}
                         </div>
@@ -59,17 +67,20 @@ function Navbar() {
                     <li className={styles.tlist_item} onClick={goInputAll}>
                         <a className={styles.tlist_item_a}>
                         <div className={styles.logo_img_wrap}>
-                            <img src={hover_csvImg} width={50} height={50} className={styles.hover_logo_img}></img>
-                            {path_len == 2 || path !== 'inputAll' ? <img src={csvImg} width={50} height={50} className={styles.logo_img}></img>:
+                            {path_len == 2 || path !== 'input-all' ? <img src={hover_csvImg} width={50} height={50} className={styles.hover_logo_img}></img>:
+                            <img src={csvImgs} width={50} height={50} className={styles.hover_logo_img}></img>}
+                            {path_len == 2 || path !== 'input-all' ? <img src={csvImg} width={50} height={50} className={styles.logo_img}></img>:
                             <img src={csvImgs} width={50} height={50} className={styles.logo_img}></img>}
                         </div>
                         </a>
                     </li>
-                    <li className={styles.tlist_item}>
+                    <li className={styles.tlist_item} onClick={goDataList}>
                         <a className={styles.tlist_item_a}>
                         <div className={styles.logo_img_wrap}>
-                            <img src={hover_logo} width={50} height={50} className={styles.hover_logo_img}></img>
-                            <img src={logo} width={50} height={50} className={styles.logo_img}></img>
+                            {path_len == 2 || path !== 'data-list' ? <img src={hover_dbImg} width={50} height={50} className={styles.hover_logo_img}></img>:
+                            <img src={dbImgs} width={50} height={50} className={styles.hover_logo_img}></img>}
+                            {path_len == 2 || path !== 'data-list' ? <img src={dbImg} width={50} height={50} className={styles.logo_img}></img>:
+                            <img src={dbImgs} width={50} height={50} className={styles.logo_img}></img>}
                         </div>
                         </a>
                     </li>

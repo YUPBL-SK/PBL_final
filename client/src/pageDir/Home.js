@@ -10,7 +10,7 @@ function Home() {
         movePage('/pages/input');
     }
     function goInputAll(){
-        movePage('/pages/inputAll');
+        movePage('/pages/input-all');
     }
     return (
         <div className='App'>

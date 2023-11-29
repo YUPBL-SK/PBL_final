@@ -15,6 +15,7 @@ const LocalUrl = 'http://127.0.0.1:5000';   // 로컬로 실행할 때 주소
 function Input() {
     const [data, setData] = useState([{}]);             // 서버에서 받아온 중량 예측 데이터
     const [modalOpen, setModalOpen] = useState(false);  // 결과 모달 상태
+    const [isData, setIsData] = useState(false);         // 모달 창의 애니메이션 효과를 위한 데이터. true일 경우 화면 출력 상태
     const movePage = useNavigate();
     // 입력 값
     let [E_scr_pv, setEscrpv] = useState('');
@@ -107,8 +108,14 @@ function Input() {
             's_temp_pv': s_temp_pv,
         };
         const config = { "Content-Type": 'application/json' };
+        setIsData(isData => {   // 비동기인 useState를 동기처럼 사용하기 위해 함수형 업데이트 사용
+            return false;
+        });
         axios.post(BackUrl + '/predict', data, config)
             .then((response) => {
+                setIsData(isData => {   // 비동기인 useState를 동기처럼 사용하기 위해 함수형 업데이트 사용
+                    return true;
+                });
                 setData(response.data); // 예측값 등록
                 openModal();    // 결과 모달 열기
             })
@@ -183,8 +190,11 @@ function Input() {
                         textAlign: 'center',
                     },
                 }}>
+                    {isData ? 
                 <div className={styles.result_wrap}>
-                    <div className={styles.result_title}><h2>제조 결과</h2></div>
+                    <div className={styles.result_title}>
+                        <h2>제조 결과</h2>
+                    </div>
                     <div className={styles.result_box}>
                         {(typeof data.predicted_weight === 'undefined') ? (
                             <p>loding...</p>
@@ -235,8 +245,8 @@ function Input() {
                     </div>
                     </div>
                 </div>
+                :<></>}
             </Modal>
-            
         </div>
     );
 }
