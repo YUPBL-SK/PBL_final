@@ -9,9 +9,6 @@ import nextimg from '../imgDir/next.png'
 import ReactFileReader from "react-file-reader";
 import MyResponsiveLine from './Graph';
 
-const BackUrl = 'https://pbl-final-yvbcumjjwq-du.a.run.app';    // 배포 서버로 실행할 때 주소
-const LocalUrl = 'http://127.0.0.1:5000';   // 로컬로 실행할 때 주소
-
 let success = 0;        // rpm 변경 시 양품 갯수
 let success2 = 0;       // rpm 변경 안 할 시 양품 갯수
 let realSuccess = 0;    // 실제 값의 양품 갯수
@@ -49,7 +46,10 @@ let graphData = [   // 그래프에 들어갈 데이터.
         "data": []
     },
 ];
+
 function InputAll() {
+    const BackUrl = 'https://pbl-final-yvbcumjjwq-du.a.run.app';    // 배포 서버로 실행할 때 주소
+    const LocalUrl = 'http://127.0.0.1:5000';   // 로컬로 실행할 때 주소
     const [data, setData] = useState([{}]);                 // 서버에서 받아온 중량 예측 데이터
     const [data2, setData2] = useState([{}]);               // 실제 중량 데이터
     const [isData, setIsData] = useState(true);             // 모달 창의 애니메이션 효과를 위한 데이터. true일 경우 화면 출력 상태
@@ -59,206 +59,14 @@ function InputAll() {
     const [modalOpen3, setModalOpen3] = useState(false);    // 테스트 입력 진행 모달 창 상태
     const [modalOpen4, setModalOpen4] = useState(false);    // 테스트 입력 결과 모달 창 상태
     const [modalOpen5, setModalOpen5] = useState(false);    // 그래프 모달 창 상태
-    const movePage = useNavigate();
 
-    const handleFileChangeTest = (files) => {    //csv 업로드 테스트
-        // 전역변수들 초기화
-        listSum = 0;
-        faile = 0;
-        faile2 = 0;
-        faileSum = 0;
-        faileSum2 = 0;
-        data_w = 0;
-        data_w2 = 0;
-        data_w3 = 0;
-        success = 0;
-        success2 = 0;
-        listBeforeSum = 0;
-        realSum = 0;
-        realFaile = 0;
-        realSuccess = 0;
-        realFaileSum = 0;
-        graphData = [
-            {
-                "id": "real",
-                "color": "hsl(125, 70%, 50%)",
-                "data": []
-            },
-            {
-                "id": "first-predict",
-                "color": "hsl(317, 70%, 50%)",
-                "data": []
-            },
-            {
-                "id": "recomend-rpm",
-                "color": "hsl(187, 70%, 50%)",
-                "data": []
-            },
-        ];
-        const read = new FileReader();  // 파일리터 생성
-        read.onload = async function (e) {    // 읽기 동작이 성공적으로 완료되었을 때마다 발생
-            let data_list = read.result.split(/(?:\r\n|\r|\n)/g).slice(1);  // 줄바꿈마다 잘라서 제조 데이터 리스트 생성(첫 줄은 열 이름 데이터이므로 제거)
-            if (data_list[data_list.length - 1] <= 1) {  // 마지막줄이 비었는 경우 빈 데이터 제거
-                data_list = data_list.slice(0, -1);
-            }
-            for (let i = 0; i < data_list.length; i++) {
-                setTimeout(() => {  // setTimeout으로 딜레이를 주어 실행
-                    const datas = data_list[i].split(",");
-                    const pv_scale = Number(datas[9]);  // 9번 인덱스는 실제 중량
-                    const data = {  // request 데이터
-                        'E_scr_pv': datas[1],
-                        'c_temp_pv': datas[3],
-                        'k_rpm_pv': datas[5],
-                        'n_temp_pv': datas[7],
-                        's_temp_pv': datas[10],
-                    };
-                    const config = { "Content-Type": 'application/json' };
-                    setIsData(isData => {   // 비동기인 useState를 동기처럼 사용하기 위해 함수형 업데이트 사용
-                        return false;
-                    });
-                    axios.post(BackUrl + '/predict', data, config) // 중량 예측 및 DB 등록
-                        .then((response) => {
-                            setIsData(isData => {   // 비동기인 useState를 동기처럼 사용하기 위해 함수형 업데이트 사용
-                                return true;        // 모달 출력
-                            });
-                            setCount(i + 1);          // 제조 데이터 수 변경
-                            setData(response.data); // 데이터 변경
-                            if (response.data.rpm_weight != -1 && !response.data.is_rpm_error) { // rpm 변경했고 불량 아닌 경우
-                                success = success + 1;                          // rpm 변경 양품 갯수 증가
-                                listSum = listSum + response.data.rpm_weight;   // rpm 변경 양품 중량 증가
-                                data_w = data_w + 3.0;                          // rpm 변경 목표 중량 증가
-                                if (!response.data.is_error) {    // 변경 안해도 불량 아닌 경우
-                                    success2 = success2 + 1;                                        // rpm 변경 안했을 때 양품 갯수 증가
-                                    listBeforeSum = listBeforeSum + response.data.predicted_weight; // rpm 변경 안했을 때 양품 중량 증가
-                                    data_w2 = data_w2 + 3.0;                                        // rpm 변경 안했을 때 목표 중량 증가
-                                } else { // 변경 안하면 불량인 경우
-                                    faile2 = faile2 + 1;                                    // rpm 변경 안했을 때 불량품 중량 증가
-                                    faileSum2 = faileSum2 + response.data.predicted_weight; // rpm 변경 안했을 때 불량품 중량 증가
-                                }
-                            } else if (response.data.rpm_weight == -1 && !response.data.is_error) {    // rpm 변경 없고 불량 아닌 경우
-
-                                success = success + 1;                                          // rpm 변경 양품 갯수 증가
-                                success2 = success2 + 1;                                        // rpm 변경 안했을 때 양품 갯수 증가
-
-                                listSum = listSum + response.data.predicted_weight;             // rpm 변경 양품 중량 증가
-                                listBeforeSum = listBeforeSum + response.data.predicted_weight; // rpm 변경 안했을 때 양품 중량 증가
-
-                                data_w = data_w + 3.0;                                          // rpm 변경 목표 중량 증가
-                                data_w2 = data_w2 + 3.0;                                        // rpm 변경 안했을 때 목표 중량 증가
-
-                            } else if (response.data.rpm_weight != -1 && response.data.is_rpm_error) { // rpm 변경 하고 불량
-                                faile = faile + 1;                                      // rpm 변경 불량품 갯수 증가
-                                faileSum = faileSum + response.data.predicted_weight;   // rpm 변경 불량품 중량 증가
-                                if (response.data.is_error) { // 변경 전에도 불량인 경우
-                                    faile2 = faile2 + 1;                                    // rpm 변경 안했을 때 불량품 갯수 증가
-                                    faileSum2 = faileSum2 + response.data.predicted_weight; // rpm 변경 안했을 때 불량품 중량 증가
-                                } else { // 변경 안했으면 양품인 경우
-                                    success2 = success2 + 1;                                        // rpm 변경 안했을 때 양품 갯수 증가
-                                    listBeforeSum = listBeforeSum + response.data.predicted_weight; // rpm 변경 안했을 때 양품 중량 증가
-                                    data_w2 = data_w2 + 3.0;                                        // rpm 변경 안했을 때 목표 중량 증가
-                                }
-                            } else if (response.data.rpm_weight == -1 && response.data.is_error) { // rpm 변경 없고 불량인 경우
-                                faile = faile + 1;                                      // rpm 변경 불량품 갯수 증가
-                                faile2 = faile2 + 1;                                    // rpm 변경 안했을 때 불량품 갯수 증가
-                                faileSum = faileSum + response.data.predicted_weight;   // rpm 변경 불량품 중량 증가
-                                faileSum2 = faileSum2 + response.data.predicted_weight; // rpm 변경 안했을 때 불량품 중량 증가
-                            }
-                            if (Math.abs(pv_scale - 3.0) > 0.1) { // 실제 중량이 불량품인 경우
-                                realFaile += 1;                         // 실제 불량품 갯수 증가
-                                realFaileSum += pv_scale;               // 실제 풀량품 중량 증가
-                                setData2({ is_error: true, w: pv_scale })   // 실제 데이터 설정(불량품)
-                            }
-                            else {   // 실제 중량이 양품인 경우
-                                realSum += pv_scale;                    // 실제 양품 중량 증가
-                                realSuccess += 1;                       // 실제 양품 갯수 증가
-                                data_w3 += 3.0;                         // 실제 양품 목표 중량 증가
-                                setData2({ is_error: false, w: pv_scale })  // 실제 데이터 설정(양품)
-                            }
-
-                            // 그래프 데이터에 실제 데이터, rpm 변경 전 데이터, rpm 변경 데이터 추가
-                            graphData[0].data.push({
-                                "x": i + 1,
-                                "y": pv_scale
-                            });
-                            graphData[1].data.push({
-                                "x": i + 1,
-                                "y": response.data.predicted_weight
-                            });
-                            if (response.data.rpm_weight == -1) { // rpm 변경하지 않은 경우 rpm 변경 전 중량이 rpm 변경 중량과 같음
-                                graphData[2].data.push({
-                                    "x": i + 1,
-                                    "y": response.data.predicted_weight
-                                });
-                            }
-                            else {
-                                graphData[2].data.push({
-                                    "x": i + 1,
-                                    "y": response.data.rpm_weight
-                                });
-                            }
-
-                            // 테스트 입력 진행 모달 창 열기
-                            openModal3();
-
-                            if (i + 1 >= data_list.length) {    // 마지막 데이터인 경우 2초 뒤 결과 모달 오픈
-                                setTimeout(() => {
-                                    // 혹시 서버쪽에서 받아오며 순서가 섞이는 경우 정렬
-                                    graphData[0].data.sort((n, m) => n.x - m.x);
-                                    graphData[1].data.sort((n, m) => n.x - m.x);
-                                    graphData[2].data.sort((n, m) => n.x - m.x);
-                                    closeModal3();  // 진행 모달 닫기
-                                    openModal4();   // 결과 모달 열기
-                                }, 2000)
-                            }
-                        })
-                        .catch(error => {
-                            console.log(error)
-                        });
-                }, i * 2000);
-            }
-        };
-        read.readAsText(files[0]);  // 파일 읽기(onload 실행)
-    };
-
-    const handleFileChange = (files) => {    //csv 업로드 실제
-        // 전역변수들 초기화
-        listSum = 0;
-        faile = 0;
-        faile2 = 0;
-        faileSum = 0;
-        faileSum2 = 0;
-        data_w = 0;
-        data_w2 = 0;
-        data_w3 = 0;
-        success = 0;
-        success2 = 0;
-        listBeforeSum = 0;
-        realSum = 0;
-        realFaile = 0;
-        realSuccess = 0;
-        realFaileSum = 0;
-        graphData = [
-            {
-                "id": "first-predict",
-                "color": "hsl(317, 70%, 50%)",
-                "data": []
-            },
-            {
-                "id": "recomend-rpm",
-                "color": "hsl(187, 70%, 50%)",
-                "data": []
-            },
-        ];
-        const read = new FileReader();  // 파일리터 생성
-
-        read.onload = async function (e) {    // 읽기 동작이 성공적으로 완료되었을 때마다 발생
-            let data_list = read.result.split(/(?:\r\n|\r|\n)/g).slice(1);  // 줄바꿈마다 잘라서 제조 데이터 리스트 생성(첫 줄은 열 이름 데이터이므로 제거)
-            if (data_list[data_list.length - 1] <= 1) {  // 마지막줄이 비었는 경우 빈 데이터 제거
-                data_list = data_list.slice(0, -1);
-            }
-            let i = 0;  // 데이터 갯수를 나타낼 변수
-            for await (const one_data of data_list) {    // 동기식으로 순서대로 제조
-                const datas = one_data.split(",");
+    const promiseSetTimeoutInputCSV = (timeToDelay, count, data_list, isTest) => {
+        if(count == 0){
+            timeToDelay = 0;
+        }
+        return new Promise((resolve, reject) => {
+            setTimeout(async (i, data_list, isTest) => {  // setTimeout으로 딜레이를 주어 실행
+                const datas = data_list[i].split(",");
                 const pv_scale = Number(datas[9]);  // 9번 인덱스는 실제 중량
                 const data = {  // request 데이터
                     'E_scr_pv': datas[1],
@@ -268,8 +76,18 @@ function InputAll() {
                     's_temp_pv': datas[10],
                 };
                 const config = { "Content-Type": 'application/json' };
+                if(isTest){
+                    setIsData(isData => {   // 비동기인 useState를 동기처럼 사용하기 위해 함수형 업데이트 사용
+                        return false;
+                    });
+                }
                 try {
-                    const response = await axios.post(BackUrl + '/predict', data, config);
+                    const response = await axios.post(BackUrl + '/predict', data, config) // 중량 예측 및 DB 등록
+                    if(isTest){
+                        setIsData(isData => {   // 비동기인 useState를 동기처럼 사용하기 위해 함수형 업데이트 사용
+                            return true;        // 모달 출력
+                        });
+                    }
                     setCount(i + 1);          // 제조 데이터 수 변경
                     setData(response.data); // 데이터 변경
                     if (response.data.rpm_weight != -1 && !response.data.is_rpm_error) { // rpm 변경했고 불량 아닌 경우
@@ -312,20 +130,40 @@ function InputAll() {
                         faileSum = faileSum + response.data.predicted_weight;   // rpm 변경 불량품 중량 증가
                         faileSum2 = faileSum2 + response.data.predicted_weight; // rpm 변경 안했을 때 불량품 중량 증가
                     }
-
+                    if (isTest) { // 테스트인 경우 실제 데이터 추가
+                        if (Math.abs(pv_scale - 3.0) > 0.1) { // 실제 중량이 불량품인 경우
+                            realFaile += 1;                         // 실제 불량품 갯수 증가
+                            realFaileSum += pv_scale;               // 실제 풀량품 중량 증가
+                            setData2({ is_error: true, w: pv_scale })   // 실제 데이터 설정(불량품)
+                        }
+                        else {   // 실제 중량이 양품인 경우
+                            realSum += pv_scale;                    // 실제 양품 중량 증가
+                            realSuccess += 1;                       // 실제 양품 갯수 증가
+                            data_w3 += 3.0;                         // 실제 양품 목표 중량 증가
+                            setData2({ is_error: false, w: pv_scale })  // 실제 데이터 설정(양품)
+                        }
+                    }
                     // 그래프 데이터에 실제 데이터, rpm 변경 전 데이터, rpm 변경 데이터 추가
-                    graphData[0].data.push({
+                    let predictIndex = 0;
+                    if (isTest) {
+                        predictIndex = 1;
+                        graphData[0].data.push({
+                            "x": i + 1,
+                            "y": pv_scale
+                        });
+                    }
+                    graphData[predictIndex].data.push({
                         "x": i + 1,
                         "y": response.data.predicted_weight
                     });
-                    if (response.data.rpm_weight == -1) {
-                        graphData[1].data.push({
+                    if (response.data.rpm_weight == -1) { // rpm 변경하지 않은 경우 rpm 변경 전 중량이 rpm 변경 중량과 같음
+                        graphData[predictIndex + 1].data.push({
                             "x": i + 1,
                             "y": response.data.predicted_weight
                         });
                     }
                     else {
-                        graphData[1].data.push({
+                        graphData[predictIndex + 1].data.push({
                             "x": i + 1,
                             "y": response.data.rpm_weight
                         });
@@ -336,23 +174,96 @@ function InputAll() {
                     setIsData(isData => {   // 비동기인 useState를 동기처럼 사용하기 위해 함수형 업데이트 사용
                         return true;        // 모달 출력
                     });
-                    openModal();    // 진행 모달 열기
-                    if (i + 1 >= data_list.length) {
-                        // 혹시 서버쪽에서 받아오며 순서가 섞이는 경우 정렬
-                        graphData[0].data.sort((n, m) => n.x - m.x);
-                        graphData[1].data.sort((n, m) => n.x - m.x);
-                        closeModal();   // 진행 모달 닫기
-                        openModal2();   // 결과 모달 열기
+                    // 테스트 입력 진행 모달 창 열기
+                    if(isTest){
+                        openModal3();
+                    }else{
+                        openModal();
                     }
-                    i += 1; // 데이터 갯수 증가
+
+                    if (i + 1 >= data_list.length) {    // 마지막 데이터인 경우 딜레이 시간 뒤 결과 모달 오픈
+                        setTimeout(() => {
+                            // 혹시 서버쪽에서 받아오며 순서가 섞이는 경우 정렬
+                            graphData[0].data.sort((n, m) => n.x - m.x);
+                            graphData[1].data.sort((n, m) => n.x - m.x);
+                            if (isTest) {
+                                graphData[2].data.sort((n, m) => n.x - m.x);
+                                closeModal3();  // 진행 모달 닫기
+                                openModal4();   // 결과 모달 열기
+                            }else{
+                                closeModal();  // 진행 모달 닫기
+                                openModal2();   // 결과 모달 열기
+                            }
+                            
+                        }, timeToDelay)
+                    }
+                    resolve();
+
                 } catch (err) {
                     console.log(err);
+                    reject();
                 }
+            }, timeToDelay, count, data_list, isTest);
+        })
+    };
+    const movePage = useNavigate();
+    const testHandleFileChangeEvent = (files) => {
+        handleFileChangeFunction(files, true);
+    }
+    const realHandleFileChangeEvent = (files) => {
+        handleFileChangeFunction(files, false);
+    }
+    const handleFileChangeFunction = (files, isTest) => {
+        // 전역변수들 초기화
+        listSum = 0;
+        faile = 0;
+        faile2 = 0;
+        faileSum = 0;
+        faileSum2 = 0;
+        data_w = 0;
+        data_w2 = 0;
+        data_w3 = 0;
+        success = 0;
+        success2 = 0;
+        listBeforeSum = 0;
+        realSum = 0;
+        realFaile = 0;
+        realSuccess = 0;
+        realFaileSum = 0;
+        graphData = [
+            {
+                "id": "first-predict",
+                "color": "hsl(317, 70%, 50%)",
+                "data": []
+            },
+            {
+                "id": "recomend-rpm",
+                "color": "hsl(187, 70%, 50%)",
+                "data": []
+            },
+        ];
+        let timeToDelay = 0;
+        if (isTest) { // 테스트인 경우 실제 데이터 추가, 딜레이 2초
+            graphData.unshift({
+                "id": "real",
+                "color": "hsl(125, 70%, 50%)",
+                "data": []
+            });
+            timeToDelay = 2000;
+        }
+        const read = new FileReader();  // 파일리터 생성
+        read.onload = async function (e) {    // 읽기 동작이 성공적으로 완료되었을 때마다 발생
+            let data_list = read.result.split(/(?:\r\n|\r|\n)/g).slice(1);  // 줄바꿈마다 잘라서 제조 데이터 리스트 생성(첫 줄은 열 이름 데이터이므로 제거)
+            if (data_list[data_list.length - 1] <= 1) {  // 마지막줄이 비었는 경우 빈 데이터 제거
+                data_list = data_list.slice(0, -1);
+            }
+            for (let i = 0; i < data_list.length; i++) {
+                await promiseSetTimeoutInputCSV(timeToDelay, i, data_list, isTest);
             }
         };
         read.readAsText(files[0]);  // 파일 읽기(onload 실행)
-    };
-
+    }
+    
     function goHome() { // 홈화면 이동 함수
         movePage('/');
         window.location.reload();
@@ -399,13 +310,13 @@ function InputAll() {
                     <div className={styles.input_box}>
                         <h1 className={styles.input_head}>Manufacturing multiple products</h1>
                         <div className={styles.input_form}>
-                            <ReactFileReader handleFiles={handleFileChangeTest} fileTypes={".csv"}>
+                            <ReactFileReader handleFiles={testHandleFileChangeEvent} fileTypes={".csv"}>
                                 <div className={styles.input_btn_wrap}>
                                     <button className={styles.test_btn_under}>Upload CSV to Test</button>
                                     <button className={styles.test_btn}><span>Upload CSV to Test</span></button>
                                 </div>
                             </ReactFileReader>
-                            <ReactFileReader handleFiles={handleFileChange} fileTypes={".csv"}>
+                            <ReactFileReader handleFiles={realHandleFileChangeEvent} fileTypes={".csv"}>
                                 <div className={styles.input_btn_wrap}>
                                     <button className={styles.input_btn_under}>Upload CSV to Manufacture</button>
                                     <button className={styles.input_btn}><span>Upload CSV to Manufacture</span></button>
