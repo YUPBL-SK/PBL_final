@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify, current_app
-# from flask.json import JSONEncoder
 from sqlalchemy import create_engine, text, insert
 from datetime import datetime
 
@@ -21,6 +20,29 @@ def get_all():
         })
     else:
         return None
+def get_barwell(start_date, end_date):
+    query = """
+    SELECT DATE_FORMAT(time, '%Y-%m-%d %H:%i:%s') AS time, E_scr_pv, c_temp_pv, k_rpm_pv, n_temp_pv, scale_pv, s_temp_pv FROM barwell WHERE time BETWEEN :start_date and :end_date
+    """
+    with current_app.database.connect() as conn:
+        rows = conn.execute(text(query), {
+            'start_date' : start_date + " 00:00:00",
+            'end_date' : end_date + " 23:59:59"
+        }).fetchall()
+        if rows:
+            data = [[
+                row[0],
+                row[1],
+                row[2],
+                row[3],
+                row[4],
+                row[5],
+                row[6]
+                ] for row in rows]
+            return data
+        else:
+            return None
+
 def insert_barwell(time, scr, ctemp, rpm, ntemp, scale, stemp):
     query = """
     INSERT INTO barwell (

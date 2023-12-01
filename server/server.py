@@ -1,17 +1,19 @@
-from flask import Flask, render_template, request, jsonify, make_response
+from flask import Flask, render_template, request, jsonify, Response, send_from_directory
 import tensorflow as tf
 import pandas as pd
 import numpy as np
 import joblib
+import os
 from flask_cors import CORS
-from dao import insert_barwell
+from dao import insert_barwell, get_barwell
 from sqlalchemy import create_engine
 from sqlalchemy.engine.url import URL
 from datetime import datetime
+from io import StringIO
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/predict": {"origins": "*"},
-                            r"/csv": {"origins": "*"},
+                            r"/data-list": {"origins": "*"},
                             })
 app.config.from_pyfile("config.py")
 database = create_engine(app.config['DB_URL'])
@@ -20,9 +22,25 @@ app.database = database
 loaded_rf = joblib.load("server/1842_RF1000_142dd2.joblib")
 loaded_rpm_rf = joblib.load("server/RPM297303_RF1000.joblib")
 
+UPLOAD_DIRECTORY = './server/uploaded_files'
+DOWNLOAD_DIRECTORY = './uploaded_files'
+
+if not os.path.exists(UPLOAD_DIRECTORY):
+    os.makedirs(UPLOAD_DIRECTORY)
+
 @app.route('/', methods=['GET'])
 def home():
     return render_template('index.html')
+
+@app.route('/data-list', methods=['GET'])
+def data_list():
+    start_date = request.args.get('start-date', "2023-11-01")
+    end_date = request.args.get('end-date', str(datetime.now())[:10])
+    barwell_data = get_barwell(start_date, end_date)
+    output = StringIO()
+    df = pd.DataFrame(barwell_data, columns=['time', 'E_scr_pv', 'c_temp_pv', 'k_rpm_pv', 'n_temp_pv', 'scale_pv', 's_temp_pv'])
+    df.to_csv(UPLOAD_DIRECTORY + '/data.csv', encoding='utf-8', index=False)
+    return send_from_directory(DOWNLOAD_DIRECTORY, "data.csv", as_attachment=True)
 
 @app.route('/predict', methods=['POST'])
 def predict():

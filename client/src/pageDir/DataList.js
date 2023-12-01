@@ -12,7 +12,6 @@ const BackUrl = 'https://pbl-final-yvbcumjjwq-du.a.run.app';    // 배포 서버
 const LocalUrl = 'http://127.0.0.1:5000';   // 로컬로 실행할 때 주소
 
 function DataList() {
-    const [data, setData] = useState([{}]);             // 서버에서 받아온 중량 예측 데이터
     const [selectedStartDate, setSelectedStartDate] = useState(new Date());
     const [selectedEndDate, setSelectedEndDate] = useState(new Date());
     const movePage = useNavigate();
@@ -20,6 +19,32 @@ function DataList() {
     function goHome() {
         movePage('/');
     }
+
+    const get_barwell = (e) => {
+        const start_date = new Date(selectedStartDate.getTime() - (selectedStartDate.getTimezoneOffset()*60000)).toISOString().slice(0,10);
+        const end_date = new Date(selectedEndDate.getTime() - (selectedEndDate.getTimezoneOffset()*60000)).toISOString().slice(0,10);
+        const data = {
+            'start-date': start_date,
+            'end-date': end_date,
+        };
+        const config = {
+            "Content-Type": 'application/json',
+            'params': data
+        };
+        axios.get(BackUrl + '/data-list', config)
+            .then((response) => {
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'barwell_' + start_date + '_' + end_date + '.csv'); //or any other extension
+                document.body.appendChild(link);
+                link.click();
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
 
     return (
         <div className={styles.App}>
@@ -54,8 +79,8 @@ function DataList() {
                                 />
                             </div>
                             <div className={styles.input_btn_wrap}>
-                                <button type="button" className={styles.input_btn_under} onClick={goHome}>Download</button>
-                                <button type="button" className={styles.input_btn} onClick={goHome}><span>Download</span></button>
+                                <button type="button" className={styles.input_btn_under} onClick={get_barwell}>Download</button>
+                                <button type="button" className={styles.input_btn} onClick={get_barwell}><span>Download</span></button>
                             </div>
                             <div className={styles.input_btn_wrap}>
                                 <button type="button" className={styles.home_btn_under} onClick={goHome}>Go Back Home</button>
