@@ -8,7 +8,7 @@ from flask_cors import CORS
 from dao import insert_barwell, get_barwell
 from sqlalchemy import create_engine
 from sqlalchemy.engine.url import URL
-from datetime import datetime
+from datetime import datetime, timedelta
 from io import StringIO
 
 app = Flask(__name__)
@@ -35,7 +35,7 @@ def home():
 @app.route('/data-list', methods=['GET'])
 def data_list():
     start_date = request.args.get('start-date', "2023-11-01")
-    end_date = request.args.get('end-date', str(datetime.now())[:10])
+    end_date = request.args.get('end-date', str(datetime.utcnow() + timedelta(hours=9))[:10])
     barwell_data = get_barwell(start_date, end_date)
     output = StringIO()
     df = pd.DataFrame(barwell_data, columns=['time', 'E_scr_pv', 'c_temp_pv', 'k_rpm_pv', 'n_temp_pv', 'scale_pv', 's_temp_pv'])
@@ -97,7 +97,7 @@ def predict():
     if abs(predicted_weight[index]-3.0) > 0.1:
         ac3 = True
     
-    time = datetime.now()
+    time = datetime.utcnow() + timedelta(hours=9)
     if index == 0:
         insert_barwell(time, scr, c_temp, rpm, n_temp, round(predicted_w[0],3), s_temp)
         return jsonify({ "predicted_weight" : round(predicted_w[0],3),
