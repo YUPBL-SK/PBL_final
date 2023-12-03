@@ -40,7 +40,7 @@ function MyResponsiveLine({ data }){
         useMesh={true}
         legends={[
             {
-                anchor: 'bottom-right',
+                anchor: 'bottom',
                 direction: 'column',
                 justify: false,
                 translateX: 100,
