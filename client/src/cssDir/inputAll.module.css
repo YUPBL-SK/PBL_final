@@ -45,6 +45,12 @@
     display: flex;
     flex-direction: column;
 }
+.input_btn_wrap_div2{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
 .input, .input_btn_under, .input_btn, .test_btn_under, .test_btn, .home_btn, .home_btn_under, .cancel_btn, .cancel_btn_under{
     border: none;
     cursor: pointer;
@@ -72,6 +78,17 @@
     border-color: #6c89c6;;
 }
 .input_btn_wrap{
+    position: relative;
+    text-decoration: 0;
+    display: block;
+    width: 100%;
+    height: 45px;
+    text-align: center;
+    overflow: hidden;
+    line-height: 43px;
+    margin-top: 6px;
+}
+.input_btn_wrap2{
     position: relative;
     text-decoration: 0;
     display: block;
@@ -226,6 +243,11 @@
     position: absolute;
     bottom: 20px;
 }
+.input_btn_wrap_div2 .input_btn_wrap2{
+    max-width: 600px;
+    position: absolute;
+    bottom: 20px;
+}
 
 .cancel_btn_under{
     position: absolute;
@@ -266,6 +288,10 @@
     display: block;
 }
 .input_btn_wrap:hover .cancel_btn{
+    border: 1px solid #6c89c6;
+    height: 100%;
+}
+.input_btn_wrap2:hover .cancel_btn{
     border: 1px solid #6c89c6;
     height: 100%;
 }
@@ -448,4 +474,76 @@
 }
 ::-webkit-scrollbar {
     display: none;
+}
+@media screen and (max-width: 1024px){
+    .result_wrap{
+        display: block;
+    }
+    .result_title{
+        position: static;
+        transform: 0;
+    }
+    .result_box{
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        position: static;
+    }
+    .result_boxR{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        position: static;
+        left: 0;
+    }
+    .result_boxN{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        position: static;
+        left: 0;
+    }
+    .result_box3{
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        position: static;
+        left: 0;
+    }
+    .input_btn_wrap_div{
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        position: static;
+        margin-top: 20px;
+        justify-content: center;
+        height: 100px;
+    }
+    .input_btn_wrap{
+        bottom: auto;
+        max-width: 600px;
+        position: absolute;
+    }
+    .product_img{
+        width: 90%;
+        height: 90%;
+    }
+    .next_img{
+        width: 90%;
+        height: 90%;
+        src: url(../imgDir/nextD.png);
+    }
+    .result_div{
+        width: auto;
+        min-width: auto;
+    }
 }

@@ -392,3 +392,57 @@
 ::-webkit-scrollbar {
     display: none;
 }
+@media screen and (max-width: 1024px){
+    .result_wrap{
+        display: block;
+    }
+    .result_title{
+        position: static;
+        transform: 0;
+    }
+    .result_box{
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        position: static;
+    }
+    .result_boxR{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        position: static;
+        left: 0;
+    }
+    .input_btn_wrap_div{
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        position: static;
+        margin-top: 20px;
+        justify-content: center;
+        height: 100px;
+    }
+    .input_btn_wrap{
+        bottom: auto;
+        max-width: 600px;
+        position: absolute;
+    }
+    .product_img{
+        width: 90%;
+        height: 90%;
+    }
+    .next_img{
+        width: 90%;
+        height: 90%;
+        src: url(../imgDir/nextD.png);
+    }
+    .result_div{
+        width: auto;
+        min-width: auto;
+    }
+}

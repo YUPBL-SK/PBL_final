@@ -288,3 +288,13 @@
         font-size: 9vw;
     }
 }
+@media screen and (max-width: 200px){
+    .home_top_img{
+        width: 100vw;
+        height: 100vh;
+    }
+    .home_bottom_img{
+        width: 100vw;
+        height: 100vh;
+    }
+}
