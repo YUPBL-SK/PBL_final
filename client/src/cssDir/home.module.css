@@ -38,7 +38,7 @@
 }
 .home_top{
     width: 50vw;
-    min-width: 400px;
+    /* min-width: 400px; */
     /* max-width: 600px; */
     height: calc(100vh - 53px);
     padding-bottom: 53px;
@@ -47,11 +47,11 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    /* justify-content: space-evenly; */
+    justify-content: space-evenly;
 }
 .home_bottom{
     width: 50vw;
-    min-width: 400px;
+    /* min-width: 400px; */
     /* max-width: 600px; */
     height: calc(100vh - 53px);
     padding-bottom: 53px;
@@ -60,7 +60,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    /* justify-content: space-around; */
+    justify-content: space-around;
 }
 .home_img_box{
     line-height: 0;
@@ -117,13 +117,13 @@
 }
 .home_text{
     text-align: left;
-    width: 330px;
+    width: 380px;
     /* margin-right: 50px; */
     padding-bottom: 50px;
 }
 .home_text:nth-child(1){
     text-align: right;
-    width: 330px;
+    width: 380px;
     /* margin-left: 50px; */
     padding-bottom: 0px;
     padding-top: 50px;
@@ -134,10 +134,12 @@
 .home_text p{
     margin: 5px 0;
     letter-spacing: -0.3px;
+    font-size: min(5vw, 16px);
 }
 .home_mid_text p{
     margin: 5px 0;
     letter-spacing: -0.3px;
+    font-size: min(5vw, 16px);
 }
 .home_mem{
     margin-top: 20px;
@@ -174,7 +176,7 @@
     font-size: 16px;
     line-height: 30px;
     position: absolute;
-    left: 330px;
+    left: 380px;
     right: 0;
     bottom: 0;
     /* height: 0; */
@@ -215,7 +217,7 @@
 }
 .home_mem_btn > span{
     line-height: 43px;
-    width: 330px;
+    width: 380px;
     position: absolute;
     font-weight: bold;
     border: 0;
@@ -227,7 +229,7 @@
 }
 .home_mem_btn_left > span{
     line-height: 43px;
-    width: 330px;
+    width: 380px;
     position: absolute;
     font-weight: bold;
     border: 0;
@@ -250,4 +252,39 @@
 .list_wrap{
     width: 100%;
     overflow: hidden;
+}
+@media screen and (max-width: 800px){
+    .home_box{
+        flex-direction: column;
+    }
+}
+@media screen and (max-width: 400px){
+    .home_box{
+        flex-direction: column;
+    }
+    .home_mem_btn > span{
+        width: 90vw;
+    }
+    .home_mem_btn_left > span{
+        width: 90vw;
+    }
+    .home_mem_btn{
+        left: 90vw;
+    }
+    .home_text{
+        width: 90vw;
+    }
+    .home_text:nth-child(1){
+        text-align: right;
+        width: 90vw;
+    }
+    .home_top_title{
+        font-size: 9vw;
+    }
+    .home_mid_title{
+        font-size: 9vw;
+    }
+    .home_bottom_title{
+        font-size: 9vw;
+    }
 }
