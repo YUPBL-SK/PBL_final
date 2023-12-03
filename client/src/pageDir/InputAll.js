@@ -311,18 +311,18 @@ function InputAll() {
                         <h1 className={styles.input_head}>Manufacturing multiple products</h1>
                         <div className={styles.input_form}>
                             <ReactFileReader handleFiles={testHandleFileChangeEvent} fileTypes={".csv"}>
-                                <div className={styles.input_btn_wrap}>
+                                <div className={styles.input_btn_wrap2}>
                                     <button className={styles.test_btn_under}>Upload CSV to Test</button>
                                     <button className={styles.test_btn}><span>Upload CSV to Test</span></button>
                                 </div>
                             </ReactFileReader>
                             <ReactFileReader handleFiles={realHandleFileChangeEvent} fileTypes={".csv"}>
-                                <div className={styles.input_btn_wrap}>
+                                <div className={styles.input_btn_wrap2}>
                                     <button className={styles.input_btn_under}>Upload CSV to Manufacture</button>
                                     <button className={styles.input_btn}><span>Upload CSV to Manufacture</span></button>
                                 </div>
                             </ReactFileReader>
-                            <div className={styles.input_btn_wrap}>
+                            <div className={styles.input_btn_wrap2}>
                                 <button type="button" className={styles.home_btn_under} onClick={goHome}>Go Back Home</button>
                                 <button type="button" className={styles.home_btn} onClick={goHome}><span>Go Back Home</span></button>
                             </div>
@@ -620,8 +620,8 @@ function InputAll() {
                 }}>
                 <div className={styles.result_wrap}>
                     <MyResponsiveLine data={graphData}></MyResponsiveLine>
-                    <div className={styles.input_btn_wrap_div}>
-                        <div className={styles.input_btn_wrap}>
+                    <div className={styles.input_btn_wrap_div2}>
+                        <div className={styles.input_btn_wrap2}>
                             <button className={styles.cancel_btn_under} onClick={closeModal5}>OK</button>
                             <button className={styles.cancel_btn} onClick={closeModal5}><span>OK</span></button>
                         </div>

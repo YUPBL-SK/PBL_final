@@ -475,12 +475,12 @@
 ::-webkit-scrollbar {
     display: none;
 }
-@media screen and (max-width: 1024px){
+@media screen and (max-width: 1570px){
     .result_wrap{
         display: block;
     }
     .result_title{
-        position: static;
+        position: relative;
         transform: 0;
     }
     .result_box{
@@ -534,13 +534,13 @@
         position: absolute;
     }
     .product_img{
-        width: 90%;
-        height: 90%;
+        width: 100px;
+        height: 100px;
     }
     .next_img{
-        width: 90%;
-        height: 90%;
-        src: url(../imgDir/nextD.png);
+        width: 100px;
+        height: 100px;
+        content: url(../imgDir/nextD.png);
     }
     .result_div{
         width: auto;

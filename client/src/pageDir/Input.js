@@ -238,8 +238,8 @@ function Input() {
                             </div>
                         }
                     </div>
-                    <div className={styles.input_btn_wrap_div}>
-                    <div className={styles.input_btn_wrap}>
+                    <div className={styles.input_btn_wrap_div2}>
+                    <div className={styles.input_btn_wrap2}>
                         <button className={styles.ok_btn_under} onClick={closeModal}>OK</button>
                         <button className={styles.ok_btn} onClick={closeModal}><span>OK</span></button>
                     </div>
