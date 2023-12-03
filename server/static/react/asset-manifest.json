@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/react/static/css/main.ca2d072d.css",
-    "main.js": "/static/react/static/js/main.dc36b3b6.js",
+    "main.css": "/static/react/static/css/main.c3a56e11.css",
+    "main.js": "/static/react/static/js/main.f12af392.js",
     "static/js/787.c4e7f8f9.chunk.js": "/static/react/static/js/787.c4e7f8f9.chunk.js",
     "static/media/err_product.png": "/static/react/static/media/err_product.b29ed038985e8647db0d.png",
     "static/media/product.PNG": "/static/react/static/media/product.dba0c61b2d9413b7590f.PNG",
@@ -22,12 +22,12 @@
     "static/media/oneImg_nav1.png": "/static/react/static/media/oneImg_nav1.1136c0f03a49d6cb9833.png",
     "static/media/oneImg_navh.png": "/static/react/static/media/oneImg_navh.c85d68134815e314e078.png",
     "../../templates/index.html": "/static/react/../../templates/index.html",
-    "main.ca2d072d.css.map": "/static/react/static/css/main.ca2d072d.css.map",
-    "main.dc36b3b6.js.map": "/static/react/static/js/main.dc36b3b6.js.map",
+    "main.c3a56e11.css.map": "/static/react/static/css/main.c3a56e11.css.map",
+    "main.f12af392.js.map": "/static/react/static/js/main.f12af392.js.map",
     "787.c4e7f8f9.chunk.js.map": "/static/react/static/js/787.c4e7f8f9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ca2d072d.css",
-    "static/js/main.dc36b3b6.js"
+    "static/css/main.c3a56e11.css",
+    "static/js/main.f12af392.js"
   ]
 }

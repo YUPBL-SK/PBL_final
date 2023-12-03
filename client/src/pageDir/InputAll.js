@@ -558,26 +558,26 @@ function InputAll() {
                         textAlign: 'center',
                     },
                 }}>
-                <div className={styles.result_wrap}>
-                    <div className={styles.result_title}><h2>{success + faile}개의 제품 제조 완료</h2></div>
+                <div className={styles.result_wrap2}>
+                    <div className={styles.result_title2}><h2>{success + faile}개의 제품 제조 완료</h2></div>
                     <div className={styles.result_box3}>
-                        <div className={styles.result_div}>
+                        <div className={styles.result_div2}>
                             <div><h2>실제 양품 :<br></br>{realSuccess}개</h2></div>
                             <div><h2>실제 양품 중량 합 :<br></br>{Math.round(realSum * 1000) / 1000}g</h2></div>
                             <div><h2>실제 loss :<br></br>{(Math.round((realSum - data_w3) * 1000000) / 1000000)}g</h2></div>
                             <div><h3>실제 불량품 :<br></br>{realFaile}개</h3></div>
                             <div><h3>실제 불량품 중량 loss :<br></br>{realFaileSum}g</h3></div>
                         </div>
-                        <img src={nextimg} width={200} height={200} className={styles.next_img} alt={'이미지를 불러오는데 실패하였습니다.'} />
-                        <div className={styles.result_div}>
+                        <img src={nextimg} width={200} height={200} className={styles.next_img2} alt={'이미지를 불러오는데 실패하였습니다.'} />
+                        <div className={styles.result_div2}>
                             <div><h2>RPM 변경 안했을 시 양품 :<br></br>{success2}개</h2></div>
                             <div><h2>RPM 변경 안했을 시 양품 중량 합 :<br></br>{Math.round(listBeforeSum * 1000) / 1000}g</h2></div>
                             <div><h2>RPM 변경 안했을 시 loss :<br></br>{(Math.round((listBeforeSum - data_w2) * 1000000) / 1000000)}g</h2></div>
                             <div><h3>RPM 변경 안했을 시 불량품 :<br></br>{faile2}개</h3></div>
                             <div><h3>RPM 변경 안했을 시 불량품 중량 loss :<br></br>{faileSum2}g</h3></div>
                         </div>
-                        <img src={nextimg} width={200} height={200} className={styles.next_img} alt={'이미지를 불러오는데 실패하였습니다.'} />
-                        <div className={styles.result_div}>
+                        <img src={nextimg} width={200} height={200} className={styles.next_img2} alt={'이미지를 불러오는데 실패하였습니다.'} />
+                        <div className={styles.result_div2}>
                             <div><h2>최종 양품 :<br></br>{success}개{success > realSuccess ? <>(+{success - realSuccess}개)</> : <></>}</h2></div>
                             <div><h2>최종 양품 중량 합 :<br></br>{Math.round(listSum * 1000) / 1000}g{Math.round(listSum * 1000) / 1000 < Math.round(realSum * 1000) / 1000 ?
                                 <>({Math.round((listSum - realSum) * 1000) / 1000}g)</> :
@@ -591,8 +591,8 @@ function InputAll() {
                         </div>
 
                     </div>
-                    <div className={styles.input_btn_wrap_div}>
-                        <div className={styles.input_btn_wrap}>
+                    <div className={styles.input_btn_wrap_div3}>
+                        <div className={styles.input_btn_wrap3}>
                             <button className={styles.cancel_btn_under} onClick={closeModal4}>OK</button>
                             <button className={styles.cancel_btn} onClick={closeModal4}><span>OK</span></button>
                         </div>
