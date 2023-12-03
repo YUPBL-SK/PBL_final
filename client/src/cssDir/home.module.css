@@ -47,7 +47,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-around;
 }
 .home_bottom{
     width: 50vw;
@@ -257,10 +257,72 @@
     .home_box{
         flex-direction: column;
     }
+    .home_top{
+        width: 50vw;
+        height: calc(100vh - 53px);
+        padding-bottom: 53px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: normal;
+    }
+    .home_bottom{
+        width: 50vw;
+        height: calc(100vh - 53px);
+        padding-bottom: 53px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: normal;
+    }
+}
+@media screen and (max-height: 650px){
+    .home_top{
+        width: 50vw;
+        height: calc(100vh - 53px);
+        padding-bottom: 53px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: normal;
+    }
+    .home_bottom{
+        width: 50vw;
+        height: calc(100vh - 53px);
+        padding-bottom: 53px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: normal;
+    }
 }
 @media screen and (max-width: 400px){
     .home_box{
         flex-direction: column;
+    }
+    .home_top{
+        width: 50vw;
+        height: calc(100vh - 53px);
+        padding-bottom: 53px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: normal;
+    }
+    .home_bottom{
+        width: 50vw;
+        height: calc(100vh - 53px);
+        padding-bottom: 53px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: normal;
     }
     .home_mem_btn > span{
         width: 90vw;
@@ -287,8 +349,6 @@
     .home_bottom_title{
         font-size: 9vw;
     }
-}
-@media screen and (max-width: 200px){
     .home_top_img{
         width: 100vw;
         height: 100vh;

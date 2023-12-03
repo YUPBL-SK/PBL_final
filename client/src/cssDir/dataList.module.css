@@ -393,3 +393,11 @@
 ::-webkit-scrollbar {
     display: none;
 }
+@media screen and (max-height: 640px){
+    .input_box{
+        box-sizing: border-box;
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+}

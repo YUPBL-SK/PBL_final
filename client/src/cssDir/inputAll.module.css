@@ -582,6 +582,29 @@
         min-width: auto;
     }
 }
+@media screen and (max-height: 550px){
+    .input_wrap{
+        min-height: auto;
+    }
+}
+@media screen and (max-height: 400px){
+    .input_wrap{
+        min-height: auto;
+    }
+    .input_head{
+        padding-top: 20px;
+        padding-bottom: 0;
+    }
+}
+@media screen and (max-height: 320px){
+    .input_wrap{
+        min-height: 400px;
+    }
+    .input_head{
+        padding-top: 20px;
+        padding-bottom: 0;
+    }
+}
 @media screen and (max-width: 1024px){
     .result_wrap{
         display: block;
