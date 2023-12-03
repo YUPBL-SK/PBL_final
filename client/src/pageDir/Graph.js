@@ -4,7 +4,7 @@ function MyResponsiveLine({ data }){
     return (
     <ResponsiveLine
         data={data}
-        margin={{ top: 30, right: 60, bottom: 130, left: 60 }}
+        margin={{ top: 30, right: 60, bottom: 150, left: 60 }}
         xScale={{ type: 'point' }}
         yScale={{
             type: 'linear',
