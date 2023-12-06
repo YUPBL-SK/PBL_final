@@ -157,6 +157,9 @@
 .input_btn_wrap:hover .input_btn{
     width: 100%;
 }
+.input_btn_wrap2:hover .input_btn{
+    width: 100%;
+}
 .test_btn_under{
     position: absolute;
     left: 0;
@@ -206,6 +209,12 @@
     width: 100%;
     max-width: 700px;
 }
+.input_btn_wrap2:hover .test_btn{
+    border: 1px solid #5dbb86;
+    left: 0;
+    width: 100%;
+    max-width: 700px;
+}
 .home_btn_under{
     position: absolute;
     left: 0;
@@ -250,6 +259,12 @@
     display: block;
 }
 .input_btn_wrap:hover .home_btn{
+    border: 1px solid #6c89c6;
+    left: 0;
+    width: 100%;
+    max-width: 700px;
+}
+.input_btn_wrap2:hover .home_btn{
     border: 1px solid #6c89c6;
     left: 0;
     width: 100%;
