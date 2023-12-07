@@ -437,7 +437,7 @@ function InputAll() {
                             ) : data.recommended_rpm !== -1 ?
                                 <div className={styles.result_boxR}>
                                     <div className={styles.result_div}>
-                                        {data2.is_error ?
+                                        {Math.abs(data2.w - 3.0) > 0.1 ?
                                             <img src={errimg} width={200} height={200} className={styles.product_img} alt={'이미지를 불러오는데 실패하였습니다.'} />
                                             : <img src={img} width={200} height={200} className={styles.product_img} alt={'이미지를 불러오는데 실패하였습니다.'} />
                                         }
@@ -447,7 +447,7 @@ function InputAll() {
                                     </div>
                                     <img src={nextimg} width={200} height={200} className={styles.next_img} alt={'이미지를 불러오는데 실패하였습니다.'} />
                                     <div className={styles.result_div}>
-                                        {data.is_error ?
+                                        {data.is_rpm_error ?
                                             <img src={errimg} width={200} height={200} className={styles.product_img} alt={'이미지를 불러오는데 실패하였습니다.'} />
                                             : <img src={img} width={200} height={200} className={styles.product_img} alt={'이미지를 불러오는데 실패하였습니다.'} />
                                         }
@@ -461,7 +461,7 @@ function InputAll() {
                                 :
                                 <div className={styles.result_boxR}>
                                     <div className={styles.result_div}>
-                                        {data2.is_error ?
+                                        {Math.abs(data2.w - 3.0) > 0.1 ?
                                             <img src={errimg} width={200} height={200} className={styles.product_img} alt={'이미지를 불러오는데 실패하였습니다.'} />
                                             : <img src={img} width={200} height={200} className={styles.product_img} alt={'이미지를 불러오는데 실패하였습니다.'} />
                                         }
