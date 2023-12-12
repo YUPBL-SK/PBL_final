@@ -76,12 +76,17 @@ function InputAll() {
                     's_temp_pv': datas[10],
                 };
                 const config = { "Content-Type": 'application/json' };
-                if(isTest){
-                    setIsData(isData => {   // 비동기인 useState를 동기처럼 사용하기 위해 함수형 업데이트 사용
-                        return false;
-                    });
-                }
+                // if(isTest){
+                //     setIsData(isData => {   // 비동기인 useState를 동기처럼 사용하기 위해 함수형 업데이트 사용
+                //         return false;
+                //     });
+                // }
                 try {
+                    if(isTest){
+                        setIsData(isData => {   // 비동기인 useState를 동기처럼 사용하기 위해 함수형 업데이트 사용
+                            return false;
+                        });
+                    }
                     const response = await axios.post(BackUrl + '/predict', data, config) // 중량 예측 및 DB 등록
                     if(isTest){
                         setIsData(isData => {   // 비동기인 useState를 동기처럼 사용하기 위해 함수형 업데이트 사용
