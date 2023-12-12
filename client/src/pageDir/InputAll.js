@@ -168,12 +168,12 @@ function InputAll() {
                             "y": response.data.rpm_weight
                         });
                     }
-                    setIsData(isData => {   // 비동기인 useState를 동기처럼 사용하기 위해 함수형 업데이트 사용
-                        return false;
-                    });
-                    setIsData(isData => {   // 비동기인 useState를 동기처럼 사용하기 위해 함수형 업데이트 사용
-                        return true;        // 모달 출력
-                    });
+                    // setIsData(isData => {   // 비동기인 useState를 동기처럼 사용하기 위해 함수형 업데이트 사용
+                    //     return false;
+                    // });
+                    // setIsData(isData => {   // 비동기인 useState를 동기처럼 사용하기 위해 함수형 업데이트 사용
+                    //     return true;        // 모달 출력
+                    // });
                     // 테스트 입력 진행 모달 창 열기
                     if(isTest){
                         openModal3();
@@ -249,7 +249,7 @@ function InputAll() {
                 "color": "hsl(125, 70%, 50%)",
                 "data": []
             });
-            timeToDelay = 2000;
+            timeToDelay = 1000;
         }
         const read = new FileReader();  // 파일리터 생성
         read.onload = async function (e) {    // 읽기 동작이 성공적으로 완료되었을 때마다 발생
